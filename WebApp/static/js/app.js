@@ -3,6 +3,10 @@
 
 	app.controller('CustomersController', function(){
 		this.customers = customers;
+		this.remove = function(customer){
+			var index = this.customers.indexOf(customer);
+			this.customers.splice(index, 1);
+		};
 	});
 
 	var customers = [

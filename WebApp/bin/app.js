@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	consolidate = require('consolidate'),
-	routes = require('./routes/default.js'),
+	routes = require('./routes/default.js');
 
 app.engine('html', consolidate.swig);
 app.set('view engine', 'html');

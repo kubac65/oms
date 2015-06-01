@@ -7,9 +7,9 @@
 {% block content %}
 <div class="row" ng-controller="CustomersController as customersCtrl">
 	<form>
-		<button class="btn btn-success">Add New <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+		<button class="btn btn-success" >Add New <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	</form>
-	<table class="table">
+	<table class="table" ng-show="customersCtrl.customers.length">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -20,7 +20,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="cust in customersCtrl.customers">
+			<tr ng-repeat="cust in customersCtrl.customers" ng-show="cust">
 				{% raw %}
 				<td>{{cust.id}}</td>
 				<td>{{cust.name}}</td>
@@ -31,12 +31,11 @@
 				<td>{{cust.contact}}</td>
 				<td>
 					<button class="btn btn-primary">Details <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
-					<button class="btn btn-danger">Remove <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
+					<button class="btn btn-danger" ng-click="customersCtrl.remove(cust)">Remove <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
 				</td>
 				{% endraw %}
 			</tr>
 		</tbody>
 	</table>
-	
 </div>
 {% endblock %}
