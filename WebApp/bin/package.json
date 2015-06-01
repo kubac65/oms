@@ -1,0 +1,18 @@
+{
+	"name": "OMS",
+	"description": "Lighweight order management system",
+	"version": "0.0.0",
+	"author": {
+		"name": "Jakub Potocki",
+		"email": "kubac65@gmail.com"
+	},
+	"dependencies": {
+		"express": "latest",
+		"consolidate": "latest",
+		"swig" : "latest"
+	},
+	"repository": {
+    	"type": "git",
+    	"url": ""
+  	}
+}
