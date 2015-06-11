@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-	<div class="row margin-bottom">
+<div class="container" ng-controller="CustomersController as customersCtrl">
+	<div class="row">
 		<div class="well">
 			This page allows you to manage your customers.
 		</div>
 	</div>
 	<div class="row margin-bottom">
 		<div class="col-md-1">
-			<button class="btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
+			<button class="btn btn-success" ng-click="customersCtrl.add()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
 		</div>
 		<div class="col-md-5 col-md-offset-6">
 			<div class="float-right">
@@ -26,28 +26,65 @@
 	<div class="row margin-bottom">
 		<div class="container">
 			<div class="col-md-12">
-				<customers-list></customers-list>
+				<table class="table table-hover table-striped table-bordered table-resoponsive">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Address</th>
+							<th>Contact</th>
+							<th>&nbsp</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="cust in customersCtrl.customers" ng-show="cust">
+							{% raw %}
+							<td class="col-md-1">{{cust.id}}</td>
+							<td class="col-md-3">{{cust.name}}</td>
+							<td class="col-md-4">
+								{{cust.address}}
+								<!--<p ng-repeat="item in cust.address.split(',')">{{item}}</p>-->
+							</td>
+							<td class="col-md-3">{{cust.contact}}</td>
+							<td class="col-md-1">
+								<button class="btn btn-danger" ng-click="customersCtrl.remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
+							</td>
+							{% endraw %}
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+	<script type="text/ng-template" id="removeUserModal.html">
+		<div class="modal-header">
+			<h3 class="modal-title">Remove Customer ?</h3>
+		</div>
+		<div class="modal-body">
+			{% raw %}
+			Are you sure you want to remove customer "{{remUserCtrl.customer.name}}" and all of the related data?
+			{% endraw %}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="remUserCtrl.yes()">Yes</button>
+            <button class="btn btn-danger" ng-click="remUserCtrl.no()">No</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="addUserModal.html">
+		<div class="modal-header">
+			<h3 class="modal-title">Add Customer</h3>
+		</div>
+		<div class="modal-body">
+			{% raw %}
+			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.name" placeholder="Name">
+			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.address" placeholder="Address">
+			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.contact" placeholder="Contact">
+			{% endraw %}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="addUserCtrl.add()">Add</button>
+            <button class="btn btn-danger" ng-click="addUserCtrl.cancel()">Cancel</button>
+		</div>
+	</script>
 </div>
 {% endblock %}
-
-
-
-
-
-<div class="row">
-	
-	<form>
-		<div class="col-md-6 col-md-offset-6">
-			<input type="text" placeholder="Customer Name"/>
-			<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
-			<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Clear Search</button>
-			<button class="btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
-		</div>
-		<!--<button class="form-control btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> Add New</button>-->
-	</form>
-	<h3>Customers</h3>
-	<customers-list></customers-list>
-</div>
