@@ -12,5 +12,8 @@ router.get('/customers', function (req, res) {
 	res.render('customers');
 });
 
+router.get('/jobs', function (req, res) {
+	res.render('jobs');
+});
 
 module.exports = router;

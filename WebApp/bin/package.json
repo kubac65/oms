@@ -1,5 +1,6 @@
 {
 	"name": "OMS",
+	"main": "app.js",
 	"description": "Lighweight order management system",
 	"version": "0.0.0",
 	"author": {

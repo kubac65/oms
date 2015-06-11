@@ -1,0 +1,10 @@
+.form-control-inline{
+	width: auto;
+	display: inline-block;
+}
+.margin-bottom{
+	margin-bottom: 20px;
+}
+.float-right{
+	float: right;
+}

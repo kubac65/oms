@@ -5,37 +5,49 @@
 {% endblock %}
 
 {% block content %}
-<div class="row" ng-controller="CustomersController as customersCtrl">
-	<form>
-		<button class="btn btn-success" >Add New <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	</form>
-	<table class="table" ng-show="customersCtrl.customers.length">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Address</th>
-				<th>Contact</th>
-				<th>&nbsp</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="cust in customersCtrl.customers" ng-show="cust">
-				{% raw %}
-				<td>{{cust.id}}</td>
-				<td>{{cust.name}}</td>
-				<td>
-					{{cust.address}}
-					<!--<p ng-repeat="item in cust.address.split(',')">{{item}}</p>-->
-				</td>
-				<td>{{cust.contact}}</td>
-				<td>
-					<button class="btn btn-primary">Details <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
-					<button class="btn btn-danger" ng-click="customersCtrl.remove(cust)">Remove <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
-				</td>
-				{% endraw %}
-			</tr>
-		</tbody>
-	</table>
+<div class="container">
+	<div class="row margin-bottom">
+		<div class="well">
+			This page allows you to manage your customers.
+		</div>
+	</div>
+	<div class="row margin-bottom">
+		<div class="col-md-1">
+			<button class="btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
+		</div>
+		<div class="col-md-5 col-md-offset-6">
+			<div class="float-right">
+				<input type="text" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
+				<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
+				<button class="btn btn-primary">Clear Results</button>	
+			</div>
+		</div>
+	</div>
+	<div class="row margin-bottom">
+		<div class="container">
+			<div class="col-md-12">
+				<customers-list></customers-list>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
+
+
+
+
+
+<div class="row">
+	
+	<form>
+		<div class="col-md-6 col-md-offset-6">
+			<input type="text" placeholder="Customer Name"/>
+			<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
+			<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Clear Search</button>
+			<button class="btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
+		</div>
+		<!--<button class="form-control btn btn-success"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> Add New</button>-->
+	</form>
+	<h3>Customers</h3>
+	<customers-list></customers-list>
+</div>
