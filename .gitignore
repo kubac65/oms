@@ -1,2 +1,4 @@
 WebApp/bin/node_modules/
+WebApp/static/bower_components/
+
 Temp/

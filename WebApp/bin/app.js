@@ -9,7 +9,7 @@ app.set('views', __dirname + '../../views');
 
 // Routers
 app.use(express.static(__dirname +  '../../static'));
-app.use(express.static(__dirname +  '../../views/directives-templates'));
+app.use(express.static(__dirname +  '../../views/directive-templates'));
 app.use('/', routes);
 
 // Listen Port

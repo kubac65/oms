@@ -1,0 +1,31 @@
+<form>
+<div class="modal-header">
+	<h3 class="modal-titlel">Customer Details</h3>
+</div>
+<div class="modal-body">
+	<tabset>
+		<tab heading="Details">
+			<div class="row margin-top" ng-model-options="{updateOn: 'customerUpdated'}">
+				<div class="col-md-6" >
+					<input type="text" class="form-control margin-bottom"placeholder="Name" ng-model="custDetailsCtrl.customer.name">
+					<input type="email" class="form-control margin-bottom"placeholder="Email" ng-model="custDetailsCtrl.customer.email">
+					<input type="tel" class="form-control"placeholder="Phone" ng-model="custDetailsCtrl.customer.phone">
+				</div>
+				<div class="col-md-6">
+					<textarea class="form-control" style="resize:none" rows=5 placeholder="Address" ng-model="custDetailsCtrl.customer.address"></textarea>
+				</div>
+			</div>
+		</tab>
+	<tab heading="Job Orders" ng-show="{{custDetailsCtrl.mode == 'update'}}">
+		<div class="row">
+			<div class="col-md-12">test</div>
+		</div>
+	</tab> 
+	</tabset>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="custDetailsCtrl.update()" ng-show="{{custDetailsCtrl.mode == 'update'}}">Update</button>
+	<button class="btn btn-success" ng-click="custDetailsCtrl.update()" ng-show="{{custDetailsCtrl.mode == 'addnew'}}">Add New</button>
+    <button class="btn btn-danger" ng-click="custDetailsCtrl.dismiss()">Cancel</button>
+</div>
+</form>

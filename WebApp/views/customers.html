@@ -17,7 +17,7 @@
 		</div>
 		<div class="col-md-5 col-md-offset-6">
 			<div class="float-right">
-				<input type="text" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
+				<input type="search" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
 				<button class="btn btn-primary"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
 				<button class="btn btn-primary">Clear Results</button>	
 			</div>
@@ -26,28 +26,31 @@
 	<div class="row margin-bottom">
 		<div class="container">
 			<div class="col-md-12">
-				<table class="table table-hover table-striped table-bordered table-resoponsive">
+				<table class="table table-striped table-bordered table-resoponsive" ng-cloak>
 					<thead>
 						<tr>
 							<th>ID</th>
 							<th>Name</th>
 							<th>Address</th>
-							<th>Contact</th>
+							<th>Email</th>
+							<th>Phone</th>
 							<th>&nbsp</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="cust in customersCtrl.customers" ng-show="cust">
+						<tr ng-repeat="cust in customersCtrl.customers">
 							{% raw %}
 							<td class="col-md-1">{{cust.id}}</td>
-							<td class="col-md-3">{{cust.name}}</td>
-							<td class="col-md-4">
-								{{cust.address}}
-								<!--<p ng-repeat="item in cust.address.split(',')">{{item}}</p>-->
-							</td>
-							<td class="col-md-3">{{cust.contact}}</td>
+							<td class="col-md-2">{{cust.name}}</td>
+							<td class="col-md-4"><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
+							<td class="col-md-2"><a href="mailto:{{cust.email}}">{{cust.email}}</a></td>
+							<td class="col-md-2"><a href="tel:{{cust.phone}}">{{cust.phone}}</a></td>
 							<td class="col-md-1">
-								<button class="btn btn-danger" ng-click="customersCtrl.remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
+								<div style="margin:auto; display:block">	
+									<button class="btn btn-primary margin-bottom" ng-click="customersCtrl.show(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>	Details</button>
+
+									<button class="btn btn-danger" ng-click="customersCtrl.remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
+								</div>
 							</td>
 							{% endraw %}
 						</tr>
@@ -56,35 +59,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/ng-template" id="removeUserModal.html">
-		<div class="modal-header">
-			<h3 class="modal-title">Remove Customer ?</h3>
-		</div>
-		<div class="modal-body">
-			{% raw %}
-			Are you sure you want to remove customer "{{remUserCtrl.customer.name}}" and all of the related data?
-			{% endraw %}
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-success" ng-click="remUserCtrl.yes()">Yes</button>
-            <button class="btn btn-danger" ng-click="remUserCtrl.no()">No</button>
-		</div>
-	</script>
-	<script type="text/ng-template" id="addUserModal.html">
-		<div class="modal-header">
-			<h3 class="modal-title">Add Customer</h3>
-		</div>
-		<div class="modal-body">
-			{% raw %}
-			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.name" placeholder="Name">
-			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.address" placeholder="Address">
-			<input type="text" class="form-control margin-bottom" ng-model="addUserCtrl.customer.contact" placeholder="Contact">
-			{% endraw %}
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-success" ng-click="addUserCtrl.add()">Add</button>
-            <button class="btn btn-danger" ng-click="addUserCtrl.cancel()">Cancel</button>
-		</div>
-	</script>
 </div>
 {% endblock %}
