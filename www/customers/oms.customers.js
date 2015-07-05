@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('oms-customers', ['ui.bootstrap']);
+	var app = angular.module('oms.customers', ['ui.bootstrap']);
 
 	app.controller('CustomersController', customerController);
 
@@ -12,7 +12,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-details-modal.html',
+				templateUrl: 'customers/customer-details-modal.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
@@ -31,7 +31,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-remove-modal.html',
+				templateUrl: 'customers/customer-remove-modal.html',
 				controller: ['$modalInstance', function($modalInstance){
 					this.customer = customer
 					this.yes = function(){
@@ -52,7 +52,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-details-modal.html',
+				templateUrl: 'customers/customer-details-modal.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
@@ -81,7 +81,7 @@
 	}]);
 
 	// Need to inject http service for interacting with backend
-	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope' 'customer', function($modalInstance, customer){
+	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope', 'customer', function($modalInstance, customer){
 		this.customer = customer;
 
 		this.update = function(){
@@ -107,7 +107,7 @@
 		}
 		this.dismiss = function(){
 			this.customer = {};
-			$modalInstance.dismiss();	
+			$modalInstance.dismiss();
 		}
 	}]);
 
