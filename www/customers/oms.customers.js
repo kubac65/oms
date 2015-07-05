@@ -1,14 +1,18 @@
 (function(){
-	var app = angular.module('oms-customers', ['ui.bootstrap']);
+	var app = angular.module('oms.customers', ['ui.bootstrap']);
 
-	app.controller('CustomersController', ['$modal',function($modal){
+	app.controller('CustomersController', customerController);
+
+	customerController.$inject = ['$modal'];
+
+	function customerController($modal){
 		this.customers = customers;
 
 		this.add = function(){
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-details-modal.html',
+				templateUrl: 'customers/customer-details-modal.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
@@ -27,7 +31,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-remove-modal.html',
+				templateUrl: 'customers/customer-remove-modal.html',
 				controller: ['$modalInstance', function($modalInstance){
 					this.customer = customer
 					this.yes = function(){
@@ -48,7 +52,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customer-details-modal.html',
+				templateUrl: 'customers/customer-details-modal.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
@@ -62,7 +66,7 @@
 				}
 			});
 		}
-	}]);
+	};
 
 	// Need to inject http service for interacting with backend
 	app.controller('AddCustomerController', ['$modalInstalance', 'customers', function($modalInstalance, customers){
@@ -103,7 +107,7 @@
 		}
 		this.dismiss = function(){
 			this.customer = {};
-			$modalInstance.dismiss();	
+			$modalInstance.dismiss();
 		}
 	}]);
 

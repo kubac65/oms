@@ -1,4 +1,6 @@
-WebApp/bin/node_modules/
-WebApp/static/bower_components/
-
-Temp/
+node_modules/
+www/lib/
+www/css/
+www/fonts/
+www/js/core.js
+www/js/app.js

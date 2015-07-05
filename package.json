@@ -1,0 +1,24 @@
+{
+  "name": "OMS",
+  "main": "app.js",
+  "description": "Lighweight order management system",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jakub Potocki",
+    "email": "kubac65@gmail.com"
+  },
+  "dependencies": {
+    "bower": "^1.4.1",
+    "express": "^4.12.4",
+    "gulp": "^3.5.6",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-sass": "^2.0.3",
+    "gulp-uglify": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kubac65/oms"
+  }
+}
