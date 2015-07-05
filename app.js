@@ -1,18 +1,15 @@
-var express = require('express'),
-	app = express(),
-	consolidate = require('consolidate'),
-	routes = require('./routes/default.js');
+'use strict';
 
-app.engine('html', consolidate.swig);
-app.set('view engine', 'html');
-app.set('views', __dirname + '../../views');
+var express = require('express'),
+	apiRoutes = require('./routes/api.js'),
+	app = express();
 
 // Routers
-app.use(express.static(__dirname +  '../../static'));
-app.use(express.static(__dirname +  '../../views/directive-templates'));
-app.use('/', routes);
+app.use(express.static(__dirname +  '/www'));
+app.use('/api', apiRoutes);
 
 // Listen Port
+// Add a config file and read this from config
 var port = 8080;
 
 var server = app.listen(port, function(err){
@@ -20,5 +17,5 @@ var server = app.listen(port, function(err){
 		throw err;
 	}
 
-	console.log("Express started on port: " + port);
+	console.log("OMS started on port: " + port);
 });
