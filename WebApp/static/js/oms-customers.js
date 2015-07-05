@@ -77,7 +77,7 @@
 	}]);
 
 	// Need to inject http service for interacting with backend
-	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope' 'customer', function($modalInstance, customer){
+	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope', 'customer', function($modalInstance, customer){
 		this.customer = customer;
 
 		this.update = function(){
