@@ -1,7 +1,11 @@
 (function(){
 	var app = angular.module('oms-customers', ['ui.bootstrap']);
 
-	app.controller('CustomersController', ['$modal',function($modal){
+	app.controller('CustomersController', customerController);
+
+	customerController.$inject = ['$modal'];
+
+	function customerController($modal){
 		this.customers = customers;
 
 		this.add = function(){
@@ -62,7 +66,7 @@
 				}
 			});
 		}
-	}]);
+	};
 
 	// Need to inject http service for interacting with backend
 	app.controller('AddCustomerController', ['$modalInstalance', 'customers', function($modalInstalance, customers){
