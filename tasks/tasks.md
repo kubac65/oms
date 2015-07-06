@@ -26,7 +26,6 @@
 3. As an admin I want ot be able to list all users.
 
 
-# Authentication
-This need to be researched for both angular and nodejs.
+# Authentication (need to research)
 1. Form based authentication.
 2. Only registered users will be given access to the application.
