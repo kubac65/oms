@@ -5,7 +5,7 @@ var concatcss = require('gulp-concat-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
-gulp.task('default', ['sass', 'copy-bootstrap', 'concat-js-deps', 'concat-js']);
+gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js']);
 
 gulp.task('sass', function(done){
 	var paths = {
@@ -41,7 +41,7 @@ gulp.task('copy-bootstrap', function(done){
 	done();
 });
 
-gulp.task('concat-js-deps', function(done){
+gulp.task('concat-vendor-js', function(done){
 	var paths = {
 		src : [
 			'./www/lib/angular/angular.min.js',
@@ -69,7 +69,7 @@ gulp.task('concat-js', function(done){
 
 	gulp.src(paths.src)
 		.pipe(concat(paths.dst))
-		//.pipe(uglify())		
+		//.pipe(uglify())
 		.pipe(gulp.dest('./'));
 
 	done();

@@ -4,16 +4,7 @@
 <div class="modal-body">
 	<tabset>
 		<tab heading="Details">
-			<div class="row margin-top" ng-model-options="{updateOn: 'customerUpdated'}">
-				<div class="col-md-6" >
-					<input type="text" class="form-control margin-bottom"placeholder="Name" ng-model="custDetailsCtrl.customer.name">
-					<input type="email" class="form-control margin-bottom"placeholder="Email" ng-model="custDetailsCtrl.customer.email">
-					<input type="tel" class="form-control"placeholder="Phone" ng-model="custDetailsCtrl.customer.phone">
-				</div>
-				<div class="col-md-6">
-					<textarea class="form-control" style="resize:none" rows=5 placeholder="Address" ng-model="custDetailsCtrl.customer.address"></textarea>
-				</div>
-			</div>
+			<customer-details></customer-details>
 		</tab>
 	<tab heading="Job Orders" ng-show="{{custDetailsCtrl.mode == 'update'}}" disable="{{custDetailsCtrl.customer.jobOrders == null}}">
 		<div class="row">

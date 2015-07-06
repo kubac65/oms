@@ -1,6 +1,23 @@
 (function(){
 	var app = angular.module('oms.customers', ['ui.bootstrap']);
 
+	app.directive('customerDetails', function(){
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'customers/customer-details.template.html'
+		};
+	});
+
+	app.controller('CustomerAddController', addCustomer);
+
+	addCustomer.$inject = ['$scope', '$modal'];
+
+	function addCustomer($scope,$modal){
+		$scope.customer = {};
+	}
+
+
 	app.controller('CustomersController', customerController);
 
 	customerController.$inject = ['$modal'];
@@ -12,7 +29,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customers/customer-details-modal.html',
+				templateUrl: 'customers/customer-addnew-modal.template.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
@@ -52,7 +69,7 @@
 			var customers = this.customers;
 
 			$modal.open({
-				templateUrl: 'customers/customer-details-modal.html',
+				templateUrl: 'customers/customer-details.modal.template.html',
 				controller: 'CustomerDetailsController',
 				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
