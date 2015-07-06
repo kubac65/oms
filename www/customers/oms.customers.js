@@ -1,135 +1,56 @@
 (function(){
-	var app = angular.module('oms.customers', ['ui.bootstrap']);
+	var app = angular.module('oms.customers', ['oms.customers.directives', 'ui.bootstrap']);
 
-	app.directive('customerDetails', function(){
-		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'customers/customer-details.template.html'
-		};
-	});
+	app.controller('CustomersListController', customerListCtrl);
+	customerListCtrl.$inject = ['$scope', '$modal'];
+	function customerListCtrl($scope, $modal){
+		$scope.customers = customers;
 
-	app.controller('CustomerAddController', addCustomer);
-
-	addCustomer.$inject = ['$scope', '$modal'];
-
-	function addCustomer($scope,$modal){
-		$scope.customer = {};
-	}
-
-
-	app.controller('CustomersController', customerController);
-
-	customerController.$inject = ['$modal'];
-
-	function customerController($modal){
-		this.customers = customers;
-
-		this.add = function(){
-			var customers = this.customers;
-
+		$scope.addNew = function(){
 			$modal.open({
 				templateUrl: 'customers/customer-addnew-modal.template.html',
-				controller: 'CustomerDetailsController',
-				controllerAs: 'custDetailsCtrl',
 				size: 'lg',
-				resolve: {
-					customer: function () {
-						return {};
-					},
-					mode: function () {
-						return 'addnew';
-					}
-				}
+				controller: addNewCustomerCtrl
 			});
+
+			addNewCustomerCtrl.$inject = ['$scope','$modalInstance'];
+			function addNewCustomerCtrl($scope, $modalInstance){
+				$scope.customer = {};
+				$scope.cancel = function(){
+					$modalInstance.dismiss();
+				};
+				$scope.add = function(){
+					// Do some black magic with $scope.customer
+					$modalInstance.dismiss();
+				};
+			}
 		};
-
-		this.remove = function(customer){
-			var customers = this.customers;
-
+		$scope.remove = function(customer){
 			$modal.open({
-				templateUrl: 'customers/customer-remove-modal.html',
-				controller: ['$modalInstance', function($modalInstance){
-					this.customer = customer
-					this.yes = function(){
-						var index = customers.indexOf(customer);
-						customers.splice(index, 1);
-						$modalInstance.dismiss('Customer Removed');
-					};
-
-					this.no = function(){
-						$modalInstance.dismiss('Cancel');
-					};
-				}],
-				controllerAs: 'remUserCtrl'
+					templateUrl: 'customers/customer-remove-modal.template.html',
+					size: 'lg',
+					controller: removeCustomerCtrl
 			});
+
+			removeCustomerCtrl.$inject = ['$scope', '$modalInstance'];
+			function removeCustomerCtrl($scope, $modalInstance){
+				$scope.customer = customer;
+			};
 		};
+	}
 
-		this.show = function(customer){
-			var customers = this.customers;
+	/*app.controller('AddCustomerController', addCustomerCtrl);
+	addCustomerCtrl.$inject = ['$scope', '$modalInstance'];
+	function addCustomerCtrl($scope,$modalInstance){
+		$scope.customer = {};
 
-			$modal.open({
-				templateUrl: 'customers/customer-details.modal.template.html',
-				controller: 'CustomerDetailsController',
-				controllerAs: 'custDetailsCtrl',
-				size: 'lg',
-				resolve: {
-					customer: function () {
-						return customer;
-					},
-					mode: function () {
-						return 'update';
-					}
-				}
-			});
-		}
-	};
-
-	// Need to inject http service for interacting with backend
-	app.controller('AddCustomerController', ['$modalInstalance', 'customers', function($modalInstalance, customers){
-		this.customers = customers;
-		this.add = function(){
+		$scope.add = function(){
 
 		};
-
-		this.dismiss = function(){
-
-		};
-	}]);
-
-	// Need to inject http service for interacting with backend
-	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope', 'customer', function($modalInstance, customer){
-		this.customer = customer;
-
-		this.update = function(){
+		$scope.cancel = function(){
 
 		};
-
-		this.dismis = function(){
-
-		};
-	}]);
-
-	app.controller('CustomerDetailsController', ['$modalInstance', '$rootScope', 'customer', 'mode', function($modalInstance, $rootScope, customer, mode){
-		this.mode = mode;
-		this.customer = customer;
-
-		this.update = function(){
-			$rootScope.$emit('customerUpdated');
-			$modalInstance.dismiss();
-		}
-		this.add = function(){
-			$rootScope.$emit('customerUpdated');
-			$modalInstance.dismiss();
-		}
-		this.dismiss = function(){
-			this.customer = {};
-			$modalInstance.dismiss();
-		}
-	}]);
-
-
-
+	}*/
 
 	var customers = [
 		{

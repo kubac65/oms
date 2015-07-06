@@ -1,4 +1,4 @@
-<div class="container" ng-controller="CustomersController as customersCtrl">
+<div class="container" ng-controller="CustomersListController">
   <div class="row">
     <div class="well">
       This page allows you to manage your customers.
@@ -7,7 +7,7 @@
   <div class="row margin-bottom">
     <div class="container">
       <div class="col-md-1">
-        <button class="btn btn-success" ng-click="customersCtrl.add()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
+        <button class="btn btn-success" ng-click="addNew()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
       </div>
       <div class="col-md-5 col-md-offset-6">
         <div class="float-right">
@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="cust in customersCtrl.customers">
+            <tr ng-repeat="cust in customers">
               <td class="col-md-1">{{cust.id}}</td>
               <td class="col-md-2">{{cust.name}}</td>
               <td class="col-md-4"><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
@@ -41,9 +41,9 @@
               <td class="col-md-2"><a href="tel:{{cust.phone}}">{{cust.phone}}</a></td>
               <td class="col-md-1">
                 <div style="margin:auto; display:block">
-                  <button class="btn btn-primary margin-bottom block" ng-click="customersCtrl.show(cust)"><span aria-hidden="true" class="glyphicon glyphicon-info-sign">&nbsp</span>	Details</button>
+                  <button class="btn btn-primary margin-bottom block" ng-click="show(cust)"><span aria-hidden="true" class="glyphicon glyphicon-info-sign">&nbsp</span>	Details</button>
 
-                  <button class="btn btn-danger block" ng-click="customersCtrl.remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
+                  <button class="btn btn-danger block" ng-click="remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
                 </div>
               </td>
             </tr>
