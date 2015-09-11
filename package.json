@@ -20,5 +20,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kubac65/oms"
+  },
+  "devDependencies": {
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-watch": "^4.3.4"
   }
 }

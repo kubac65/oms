@@ -11,9 +11,24 @@
         // Make request to backend
         var index = this.customers.indexOf(customer);
 				this.customers.splice(index, 1);
-      }
+      },
+			update: function(customer){
+				var index = this.customers.indexOf(customer);
+			}
     }
   });
+
+
+
+
+
+
+
+
+
+
+
+
 
   var _customers = [
 		{

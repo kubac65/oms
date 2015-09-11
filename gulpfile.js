@@ -4,8 +4,9 @@ var minifycss = require('gulp-minify-css');
 var concatcss = require('gulp-concat-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var templateCache = require('gulp-angular-templatecache');
 
-gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js']);
+gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js', 'compile-templates']);
 
 gulp.task('sass', function(done){
 	var paths = {
@@ -72,5 +73,17 @@ gulp.task('concat-js', function(done){
 		//.pipe(uglify())
 		.pipe(gulp.dest('./'));
 
+	done();
+});
+
+gulp.task('compile-templates', function(done){
+	var paths = {
+		src: './www/**/*.template.html',
+		dst: './www/js/'
+	}
+	gulp.src(paths.src)
+        .pipe(templateCache({ standalone:true }))
+				//.pipe(uglify())
+				.pipe(gulp.dest(paths.dst));
 	done();
 });

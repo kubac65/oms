@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('oms', ['ui.router', 'oms.customers']);
+	var app = angular.module('oms', ['ui.router', 'oms.customers', 'templates']);
 
 	app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
