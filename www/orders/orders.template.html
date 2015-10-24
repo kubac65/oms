@@ -1,9 +1,9 @@
-<div class="container" ng-controller="CustomersListController">
+<div class="container" ng-controller="OrdersListController">
   <div class="row">
     <div class="container">
       <div class="col-md-12">
         <div class="well">
-          This page allows you to manage your customers.
+          This page allows you to manage your orders.
         </div>
       </div>
     </div>
@@ -15,6 +15,11 @@
         <input type="search" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
         <button class="btn btn-primary form-control form-control-inline"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
         <button class="btn btn-primary form-control form-control-inline">Clear Results</button>
+        <div class="btn-group">
+          <button class="btn">In Progress</button>
+          <button class="btn active">All</button>
+          <button class="btn btn-primary">Completed</button>
+        </div>
       </div>
     </div>
   </div>
@@ -25,26 +30,25 @@
           <thead>
             <tr>
               <th class="col-md-1">ID</th>
-              <th class="col-md-2">Name</th>
-              <th class="col-md-4">Address</th>
-              <th class="col-md-2">Email</th>
-              <th class="col-md-2">Phone</th>
+              <th class="col-md-2">Customer</th>
+              <th class="col-md-2">Details</th>
+              <th class="col-md-2">Ref</th>
+              <th class="col-md-1">Order Date</th>
+              <th class="col-md-1">Due Date</th>
+              <th class="col-md-1">Status</th>
               <th class="col-md-1">&nbsp</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="cust in customers">
-              <td>{{cust.id}}</td>
-              <td>{{cust.name}}</td>
-              <td><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
-              <td><a href="mailto:{{cust.email}}">{{cust.email}}</a></td>
-              <td><a href="tel:{{cust.phone}}">{{cust.phone}}</a></td>
-              <td>
-                <div style="margin:auto; display:block">
-                  <button class="btn btn-primary margin-bottom block" ng-click="details(cust)"><span aria-hidden="true" class="glyphicon glyphicon-info-sign">&nbsp</span>	Details</button>
-                  <button class="btn btn-danger block" ng-click="remove(cust)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp</span>Remove</button>
-                </div>
-              </td>
+            <tr ng-repeat="order in orders">
+              <td>{{order.id}}</td>
+              <td>{{order.customer}}</td>
+              <td>{{order.details}}</td>
+              <td>{{order.orderRef}}</td>
+              <td>{{order.orderDate}}</td>
+              <td>{{order.dueDate}}</td>
+              <td>{{order.status}}</td>
+              <td></td>
             </tr>
           </tbody>
         </table>

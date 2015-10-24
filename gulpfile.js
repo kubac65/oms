@@ -63,7 +63,8 @@ gulp.task('concat-js', function(done){
 	var paths = {
 		src : [
 			'./www/js/oms.js',
-			'./www/customers/*.js'
+			'./www/customers/*.js',
+			'./www/orders/*.js',
 		],
 		dst : './www/js/app.js'
 	}

@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('oms.customers', ['oms.customers.directives', 'oms.customers.service', 'ui.bootstrap', 'templates']);
+	var app = angular.module('oms.customers', ['oms.customers.directives', 'oms.customers.service', 'ui.bootstrap']);
 
 	app.controller('CustomersListController', listCtrl);
 	listCtrl.$inject = ['$scope', '$modal', 'customersService'];
@@ -48,11 +48,15 @@
 				}
 			});
 
+			$scope.search = function(phrase){
+
+			};
+
 			modalInstance.result.then(function(updatedCustomer){
 				angular.extend(customer, updatedCustomer);
 			});
 		};
-	};
+	}
 
 	app.controller('CustomersAddController', addCtrl);
 	addCtrl.$inject = ['$scope', '$modalInstance',];
@@ -82,7 +86,7 @@
 		$scope.no = function(){
 			$modalInstance.dismiss();
 		};
-	};
+	}
 
 	app.controller('CustomersDetailsController', detailsCtrl);
 	detailsCtrl.$inject = ['$scope', '$modalInstance', 'customer'];

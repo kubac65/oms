@@ -1,12 +1,12 @@
 'use strict';
 
 var express = require('express'),
-	apiRoutes = require('./routes/api.js'),
+	custRoutes = require('./routes/customer.js'),
 	app = express();
 
 // Routers
 app.use(express.static(__dirname +  '/www'));
-app.use('/api', apiRoutes);
+app.use('/api/customers', custRoutes);
 
 // Listen Port
 // Add a config file and read this from config
