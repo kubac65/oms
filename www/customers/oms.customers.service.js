@@ -1,89 +1,51 @@
 (function(){
 	var app = angular.module('oms.customers.service', []);
-  app.service('customersService', function(){
-    return {
-      customers: _customers,
-      add: function(customer){
-        // Make request to backend
-        this.customers.push(customer);
-      },
-      remove: function(customer){
-        // Make request to backend
-        var index = this.customers.indexOf(customer);
-				this.customers.splice(index, 1);
-      },
-			update: function(customer){
-				var index = this.customers.indexOf(customer);
-			}
-    }
-  });
 
+	app.service('customersService', customerService);
+	customerService.$inject = ['$http'];
 
+	function customerService($http){
+		var customers = [];
 
+		// customer list from the backend
+		this.promise = $http({
+				method:'GET',
+				url: '/api/customers'
+			}).then(function(res){
+				console.log(res);
+				customers = res.data;
+			}, function(res){
+				alert('Error1');
+			});
 
-
-
-
-
-
-
-
-
-
-  var _customers = [
-		{
-			"id": 1,
-			"name": "Jakub i",
-			"address": "24 N Main Street, Cork",
-			"phone": "0862548795",
-			"email": "test@test.com",
-			"jobOrders": [
-				{
-					"id" : 1,
-					"orderDate": "10-08-25",
-					"dueDate": "15-35-25",
-					"order-ref": "Tomasz",
-					"notes": "dupa dupa dupa",
-					"total": 1234.12,
-					"items": [
-						{
-							"description": "plexa 10x10",
-							"quantity": 2,
-							"unitPrice": 10.99,
-							"subtotal": 21.89
-						},
-						{
-							"description": "poster",
-							"quantity": 20,
-							"unitPrice": 1.50,
-							"subtotal": 30
-						},
-
-					]
-				},
-				{
-					"id" : 2,
-					"orderDate": "10-08-25",
-					"dueDate": "15-35-25",
-					"order-ref": "Tomasz tt",
-					"notes": "dupa dupa dupa",
-					"total": 12343123.12,
-					"items": [
-						{
-							"description": "plexa 10x10",
-							"quantity": 2,
-							"unitPrice": 10.99,
-							"subtotal": 21.89
-						},
-						{
-							"description": "poster",
-							"quantity": 20,
-							"unitPrice": 1.50,
-							"subtotal": 30
-						}
-					]
-				}
-			]
+		this.getAll = function(){
+			return customers;
 		}
-	];
+		this.add = function(customer){
+			$http({
+				method:'PUT',
+				url: '/api/customers',
+				data: JSON.stringify(customer)
+			}).then(function(res){
+				console.log(res.data);
+				customers.push(customer);
+			}, function(res){
+				alert('Error2');
+			});
+
+
+      // Make request to backend
+
+    }
+
+		this.remove = function(customer){
+      // Make request to backend
+      var index = customers.indexOf(customer);
+			customers.splice(index, 1);
+    }
+
+		this.update = function(customer){
+			var index = customers.indexOf(customer);
+		}
+	}
 })();

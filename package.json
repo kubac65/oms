@@ -1,6 +1,7 @@
 {
   "name": "OMS",
   "main": "app.js",
+  "private": true,
   "description": "Lighweight order management system",
   "version": "0.0.0",
   "author": {
@@ -8,6 +9,7 @@
     "email": "kubac65@gmail.com"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
     "bower": "^1.4.1",
     "express": "^4.12.4",
     "gulp": "^3.5.6",

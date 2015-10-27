@@ -24,7 +24,7 @@
     {
       id: 1,
       customer: 'Jakub Potocki',
-      details: '20x30 Poster',
+      details: '20x30 Poster, 20x30 Poster, 20x30 Poster',
       orderDate: "10-08-25",
       dueDate: "15-35-25",
       orderRef: "Tomasz",

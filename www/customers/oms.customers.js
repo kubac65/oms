@@ -5,7 +5,8 @@
 	listCtrl.$inject = ['$scope', '$modal', 'customersService'];
 
 	function listCtrl($scope, $modal, customersService){
-		$scope.customers = customersService.customers;
+		//$scope.customers = customersService.customers;
+		$scope.customers = customersService.getAll();
 
 		$scope.add = function(){
 			var modalInstance = $modal.open({
