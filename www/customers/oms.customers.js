@@ -1,173 +1,107 @@
 (function(){
-	var app = angular.module('oms.customers', ['ui.bootstrap']);
+	var app = angular.module('oms.customers', ['oms.customers.directives', 'oms.customers.service', 'ui.bootstrap']);
 
-	app.controller('CustomersController', customerController);
+	app.controller('CustomersListController', listCtrl);
+	listCtrl.$inject = ['$scope', '$modal', 'customersService'];
 
-	customerController.$inject = ['$modal'];
+	function listCtrl($scope, $modal, customersService){
+		//$scope.customers = customersService.customers;
+		$scope.customers = customersService.getAll();
 
-	function customerController($modal){
-		this.customers = customers;
-
-		this.add = function(){
-			var customers = this.customers;
-
-			$modal.open({
-				templateUrl: 'customers/customer-details-modal.html',
-				controller: 'CustomerDetailsController',
-				controllerAs: 'custDetailsCtrl',
+		$scope.add = function(){
+			var modalInstance = $modal.open({
+				templateUrl: 'customers/customer-addnew-modal.template.html',
 				size: 'lg',
-				resolve: {
-					customer: function () {
-						return {};
-					},
-					mode: function () {
-						return 'addnew';
+				controller: 'CustomersAddController',
+			});
+
+			modalInstance.result.then(function(newCustomer){
+				customersService.add(newCustomer);
+			});
+		};
+
+		$scope.remove = function(customer){
+			var modalInstance = $modal.open({
+					templateUrl: 'customers/customer-remove-modal.template.html',
+					size: 'lg',
+					controller: 'CustomersRemoveController',
+					resolve: {
+							customer: function(){
+								return customer;
+							}
 					}
-				}
+			});
+
+			modalInstance.result.then(function(customer){
+				customersService.remove(customer);
 			});
 		};
 
-		this.remove = function(customer){
-			var customers = this.customers;
-
-			$modal.open({
-				templateUrl: 'customers/customer-remove-modal.html',
-				controller: ['$modalInstance', function($modalInstance){
-					this.customer = customer
-					this.yes = function(){
-						var index = customers.indexOf(customer);
-						customers.splice(index, 1);
-						$modalInstance.dismiss('Customer Removed');
-					};
-
-					this.no = function(){
-						$modalInstance.dismiss('Cancel');
-					};
-				}],
-				controllerAs: 'remUserCtrl'
-			});
-		};
-
-		this.show = function(customer){
-			var customers = this.customers;
-
-			$modal.open({
-				templateUrl: 'customers/customer-details-modal.html',
-				controller: 'CustomerDetailsController',
-				controllerAs: 'custDetailsCtrl',
+		$scope.details = function(customer){
+			var modalInstance = $modal.open({
+				templateUrl: 'customers/customer-details-modal.template.html',
 				size: 'lg',
+				controller: 'CustomersDetailsController',
 				resolve: {
-					customer: function () {
-						return customer;
-					},
-					mode: function () {
-						return 'update';
-					}
-				}
-			});
-		}
-	};
-
-	// Need to inject http service for interacting with backend
-	app.controller('AddCustomerController', ['$modalInstalance', 'customers', function($modalInstalance, customers){
-		this.customers = customers;
-		this.add = function(){
-
-		};
-
-		this.dismiss = function(){
-
-		};
-	}]);
-
-	// Need to inject http service for interacting with backend
-	app.controller('UpdateCustomerController', ['$modalInstance', '$rootScope', 'customer', function($modalInstance, customer){
-		this.customer = customer;
-
-		this.update = function(){
-
-		};
-
-		this.dismis = function(){
-
-		};
-	}]);
-
-	app.controller('CustomerDetailsController', ['$modalInstance', '$rootScope', 'customer', 'mode', function($modalInstance, $rootScope, customer, mode){
-		this.mode = mode;
-		this.customer = customer;
-
-		this.update = function(){
-			$rootScope.$emit('customerUpdated');
-			$modalInstance.dismiss();
-		}
-		this.add = function(){
-			$rootScope.$emit('customerUpdated');
-			$modalInstance.dismiss();
-		}
-		this.dismiss = function(){
-			this.customer = {};
-			$modalInstance.dismiss();
-		}
-	}]);
-
-
-
-
-	var customers = [
-		{
-			"id": 1,
-			"name": "Jakub i",
-			"address": "24 N Main Street, Cork",
-			"phone": "0862548795",
-			"email": "test@test.com",
-			"jobOrders": [
-				{
-					"id" : 1,
-					"orderDate": "10-08-25",
-					"dueDate": "15-35-25",
-					"order-ref": "Tomasz",
-					"notes": "dupa dupa dupa",
-					"total": 1234.12,
-					"items": [
-						{
-							"description": "plexa 10x10",
-							"quantity": 2,
-							"unitPrice": 10.99,
-							"subtotal": 21.89
-						},
-						{
-							"description": "poster",
-							"quantity": 20,
-							"unitPrice": 1.50,
-							"subtotal": 30
-						},
-
-					]
-				},
-				{
-					"id" : 2,
-					"orderDate": "10-08-25",
-					"dueDate": "15-35-25",
-					"order-ref": "Tomasz tt",
-					"notes": "dupa dupa dupa",
-					"total": 12343123.12,
-					"items": [
-						{
-							"description": "plexa 10x10",
-							"quantity": 2,
-							"unitPrice": 10.99,
-							"subtotal": 21.89
-						},
-						{
-							"description": "poster",
-							"quantity": 20,
-							"unitPrice": 1.50,
-							"subtotal": 30
+						customer: function(){
+							return customer;
 						}
-					]
 				}
-			]
-		}
-	];
+			});
+
+			$scope.search = function(phrase){
+
+			};
+
+			modalInstance.result.then(function(updatedCustomer){
+				angular.extend(customer, updatedCustomer);
+			});
+		};
+	}
+
+	app.controller('CustomersAddController', addCtrl);
+	addCtrl.$inject = ['$scope', '$modalInstance',];
+
+	function addCtrl($scope, $modalInstance){
+		$scope.customer = {};
+
+		$scope.add = function(){
+			$modalInstance.close($scope.customer);
+		};
+
+		$scope.cancel = function(){
+			$modalInstance.dismiss();
+		};
+	}
+
+	app.controller('CustomersRemoveController', removeCtrl);
+	removeCtrl.$inject = ['$scope', '$modalInstance', 'customer'];
+
+	function removeCtrl($scope, $modalInstance, customer){
+		$scope.customer = customer;
+
+		$scope.yes = function(){
+			$modalInstance.close($scope.customer);
+		};
+
+		$scope.no = function(){
+			$modalInstance.dismiss();
+		};
+	}
+
+	app.controller('CustomersDetailsController', detailsCtrl);
+	detailsCtrl.$inject = ['$scope', '$modalInstance', 'customer'];
+
+	function detailsCtrl($scope, $modalInstance, customer){
+		$scope.customer = {};
+		angular.copy(customer, $scope.customer)
+
+		$scope.update = function(){
+			$modalInstance.close($scope.customer);
+		};
+
+		$scope.cancel = function(){
+			$modalInstance.dismiss();
+		};
+	}
 })();

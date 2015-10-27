@@ -4,8 +4,9 @@ var minifycss = require('gulp-minify-css');
 var concatcss = require('gulp-concat-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var templateCache = require('gulp-angular-templatecache');
 
-gulp.task('default', ['sass', 'copy-bootstrap', 'concat-js-deps', 'concat-js']);
+gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js', 'compile-templates']);
 
 gulp.task('sass', function(done){
 	var paths = {
@@ -41,7 +42,7 @@ gulp.task('copy-bootstrap', function(done){
 	done();
 });
 
-gulp.task('concat-js-deps', function(done){
+gulp.task('concat-vendor-js', function(done){
 	var paths = {
 		src : [
 			'./www/lib/angular/angular.min.js',
@@ -62,15 +63,28 @@ gulp.task('concat-js', function(done){
 	var paths = {
 		src : [
 			'./www/js/oms.js',
-			'./www/customers/*.js'
+			'./www/customers/*.js',
+			'./www/orders/*.js',
 		],
 		dst : './www/js/app.js'
 	}
 
 	gulp.src(paths.src)
 		.pipe(concat(paths.dst))
-		//.pipe(uglify())		
+		//.pipe(uglify())
 		.pipe(gulp.dest('./'));
 
+	done();
+});
+
+gulp.task('compile-templates', function(done){
+	var paths = {
+		src: './www/**/*.template.html',
+		dst: './www/js/'
+	}
+	gulp.src(paths.src)
+        .pipe(templateCache({ standalone:true }))
+				//.pipe(uglify())
+				.pipe(gulp.dest(paths.dst));
 	done();
 });
