@@ -3,6 +3,7 @@ Order Management System
 
 # Dependencies
 node.js
+mongodb
 
 # Set up
 1. Install node dependencies ```npm install```

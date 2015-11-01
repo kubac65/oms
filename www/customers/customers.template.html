@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="cust in customers">
-              <td>{{cust.id}}</td>
+              <td>{{cust._id}}</td>
               <td>{{cust.name}}</td>
               <td><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
               <td><a href="mailto:{{cust.email}}">{{cust.email}}</a></td>

@@ -1,14 +1,14 @@
 <div class="row margin-top">
   <div class="col-md-6" >
     <label>Name</label>
-    <input type="text" class="form-control margin-bottom"placeholder="Name" ng-model="customer.name">
+    <input type="text" name="name" class="form-control margin-bottom"placeholder="Name" ng-model="customer.name" required>
     <label>Email</label>
-    <input type="email" class="form-control margin-bottom"placeholder="Email" ng-model="customer.email">
+    <input type="email" name="email" class="form-control margin-bottom"placeholder="Email" ng-model="customer.email" required>
     <label>Phone</label>
-    <input type="tel" class="form-control"placeholder="Phone" ng-model="customer.phone">
+    <input type="tel" name="tel" class="form-control"placeholder="Phone" ng-model="customer.phone" ng-pattern="/^\+?\d+$/" required>
   </div>
   <div class="col-md-6">
     <label>Address</label>
-    <textarea class="form-control" style="resize:none" rows=5 placeholder="Address" ng-model="customer.address"></textarea>
+    <textarea name="address" class="form-control" style="resize:none" rows=5 placeholder="Address" ng-model="customer.address" required></textarea>
   </div>
 </div>

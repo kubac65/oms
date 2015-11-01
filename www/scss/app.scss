@@ -1,16 +1,28 @@
-.form-control-inline{
-	width: auto;
-	display: inline-block;
-}
-.margin-bottom{
-	margin-bottom: 20px;
-}
-.margin-top{
-	margin-top: 20px;
-}
-.float-right{
-	float: right;
-}
-.block{
-	width: 100%;
+@import "bootstrap";
+.oms{
+	.form-control-inline{
+		width: auto;
+		display: inline-block;
+	}
+	.margin-bottom{
+		margin-bottom: 20px;
+	}
+	.margin-top{
+		margin-top: 20px;
+	}
+	.float-right{
+		float: right;
+	}
+	.block{
+		width: 100%;
+	}
+
+	input.ng-invalid.ng-touched,
+	textarea.ng-invalid.ng-touched{
+		@extend .alert-danger;
+	}
+	input.ng-valid.ng-touched,
+	textarea.ng-valid.ng-touched{
+		@extend .alert-success;
+	}
 }

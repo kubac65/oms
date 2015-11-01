@@ -27,10 +27,11 @@
 				url: '/api/customers',
 				data: JSON.stringify(customer)
 			}).then(function(res){
-				console.log(res.data);
+				// Update customer id with newly generated one
+				customer._id=res.data._id;
 				customers.push(customer);
 			}, function(res){
-				alert('Error2');
+				alert('Couldn\'t add new customer.');
 			});
 
 
@@ -40,8 +41,17 @@
 
 		this.remove = function(customer){
       // Make request to backend
-      var index = customers.indexOf(customer);
-			customers.splice(index, 1);
+			$http({
+				method: 'DELETE',
+				url: '/api/customers/' + customer._id
+			}).then(function success(res){
+				// Remove customer from the array
+				var index = customers.indexOf(customer);
+				customers.splice(index, 1);
+				delete customer;
+			}, function fail(res){
+				alert('Failed');
+			});
     }
 
 		this.update = function(customer){

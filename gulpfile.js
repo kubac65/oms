@@ -12,11 +12,14 @@ gulp.task('sass', function(done){
 	var paths = {
 		sassSrc : './www/scss/**/*.scss',
 		cssDst : './www/css/app.css',
+		includePaths : ['./www/lib/bootstrap-sass/assets/stylesheets']
 	};
 
 	gulp.src(paths.sassSrc)
 		.pipe(sass({
-			errLogToConsole: true
+			style: 'compressed',
+			errLogToConsole: true,
+			includePaths: paths.includePaths
 		}))
 		.pipe(concatcss(paths.cssDst))
 		.pipe(minifycss())

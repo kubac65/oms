@@ -4,13 +4,10 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-// Register models
-var models = require('./db/models/customer.schema.js');
-
 var	custRoutes = require('./routes/customer.js');
 
 var dbHost = 'mongodb://localhost/oms';
-var port = 8080;
+var port = 8090;
 
 mongoose.connect(dbHost, function(err){
 	if (err){
