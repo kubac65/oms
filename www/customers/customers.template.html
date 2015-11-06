@@ -12,9 +12,11 @@
     <div class="container">
       <div class="col-md-12">
         <button class="btn btn-success" ng-click="add()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
-        <input type="search" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
-        <button class="btn btn-primary form-control form-control-inline"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
-        <button class="btn btn-primary form-control form-control-inline">Clear Results</button>
+        <form name="searchCustomers" novalidate ng-submit="search(38)">
+          <input type="search" name="search" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
+          <button type="submit" class="btn btn-primary form-control form-control-inline"><span aria-hidden="true" class="glyphicon glyphicon-search" >&nbsp</span>Search</button>
+          <button class="btn btn-primary form-control form-control-inline">Clear Results</button>
+        </form>
       </div>
     </div>
   </div>
@@ -34,7 +36,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="cust in customers">
-              <td>{{cust._id}}</td>
+              <td>{{cust.custId}}</td>
               <td>{{cust.name}}</td>
               <td><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
               <td><a href="mailto:{{cust.email}}">{{cust.email}}</a></td>

@@ -49,13 +49,13 @@
 				}
 			});
 
-			$scope.search = function(phrase){
-
-			};
-
 			modalInstance.result.then(function(updatedCustomer){
 				angular.extend(customer, updatedCustomer);
 			});
+		};
+
+		$scope.search = function(phrase){
+			customersService.search(phrase);
 		};
 	}
 
@@ -90,13 +90,14 @@
 	}
 
 	app.controller('CustomersDetailsController', detailsCtrl);
-	detailsCtrl.$inject = ['$scope', '$modalInstance', 'customer'];
+	detailsCtrl.$inject = ['$scope', '$modalInstance', 'customer', 'customersService'];
 
-	function detailsCtrl($scope, $modalInstance, customer){
+	function detailsCtrl($scope, $modalInstance, customer, customerService){
 		$scope.customer = {};
 		angular.copy(customer, $scope.customer)
 
 		$scope.update = function(){
+			customerService.update($scope.customer);
 			$modalInstance.close($scope.customer);
 		};
 

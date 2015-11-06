@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"orderDate": {
+			"name": "orderDate",
+			"type": "object",
+			"typeLabel": "object",
+			"required": true,
+			"id": "orderDate",
+			"order": 0
+		},
+		"dueDate": {
+			"name": "dueDate",
+			"type": "object",
+			"typeLabel": "object",
+			"required": true,
+			"id": "dueDate",
+			"order": 1
+		},
+		"status": {
+			"name": "status",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "status",
+			"order": 2
+		},
+		"items": {
+			"name": "items",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "items",
+			"order": 3
+		}
+	}
+}

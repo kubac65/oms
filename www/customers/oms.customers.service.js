@@ -1,61 +1,79 @@
 (function(){
-	var app = angular.module('oms.customers.service', []);
+	var app = angular.module('oms.customers.service', ['dpd']);
 
 	app.service('customersService', customerService);
-	customerService.$inject = ['$http'];
+	customerService.$inject = ['$http', 'dpd'];
 
-	function customerService($http){
+	function customerService($http, dpd){
 		var customers = [];
 
 		// customer list from the backend
-		this.promise = $http({
-				method:'GET',
-				url: '/api/customers'
-			}).then(function(res){
-				console.log(res);
-				customers = res.data;
-			}, function(res){
-				alert('Error1');
-			});
+		this.promise = getAll();
+		/*this.promise = dpd.customers.get()
+			.success(function(res){
+				customers = res;
+			});*/
 
+		function getAll(){
+			return dpd.customers.get()
+				.success(function(res){
+					//angular.copy(res, customers)
+					customers = res;
+				})
+				.error(function(err){
+					throw err;
+				});
+		}
 		this.getAll = function(){
 			return customers;
+		};
+
+		this.search = function(phrase){
+				dpd.customers.get({$or: [{name: phrase}, {custId: phrase}]})
+					.success(function(res){
+						angular.copy(res,customers);
+					})
+					.error(function(err){
+						throw err;
+					})
 		}
+
 		this.add = function(customer){
-			$http({
-				method:'PUT',
-				url: '/api/customers',
-				data: JSON.stringify(customer)
-			}).then(function(res){
-				// Update customer id with newly generated one
-				customer._id=res.data._id;
-				customers.push(customer);
-			}, function(res){
-				alert('Couldn\'t add new customer.');
-			});
-
-
-      // Make request to backend
-
+			dpd.customers.post(customer)
+				.success(function(res){
+					customer.custId=res.custId;
+					customers.push(customer);
+				})
+				.error(function(err){
+					throw(err);
+				});
     }
 
 		this.remove = function(customer){
-      // Make request to backend
-			$http({
-				method: 'DELETE',
-				url: '/api/customers/' + customer._id
-			}).then(function success(res){
-				// Remove customer from the array
-				var index = customers.indexOf(customer);
-				customers.splice(index, 1);
-				delete customer;
-			}, function fail(res){
-				alert('Failed');
-			});
+			dpd.customers.del(customer.id)
+				.success(function(res){
+					var index = customers.indexOf(customer);
+					customers.splice(index, 1);
+					delete customer;
+				})
+				.error(function(err){
+					throw(err);
+				});
     }
 
 		this.update = function(customer){
-			var index = customers.indexOf(customer);
+			dpd.customers.put(customer.id, {
+				name: customer.name,
+				address: customer.address,
+				email: customer.email,
+				phone: customer.phone
+			})
+				.success(function(res){
+					console.log(res);
+				})
+				.error(function(err){
+					throw err;
+				});
 		}
 	}
 })();

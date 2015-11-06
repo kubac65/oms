@@ -1,0 +1,13 @@
+{
+	"type": "Collection",
+	"properties": {
+		"seq": {
+			"name": "seq",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "seq",
+			"order": 0
+		}
+	}
+}
