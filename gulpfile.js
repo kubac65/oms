@@ -50,7 +50,8 @@ gulp.task('concat-vendor-js', function(done){
 		src : [
 			'./www/lib/angular/angular.min.js',
 			'./www/lib/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
-			'./www/lib/angular-ui-router/release/angular-ui-router.js'
+			'./www/lib/angular-ui-router/release/angular-ui-router.js',
+			'./www/lib/angular-dpd/angular-dpd.js'
 		],
 		dst : './www/js/core.js'
 	};
