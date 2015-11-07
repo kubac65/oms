@@ -5,7 +5,7 @@
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'customers/customer-details-directive.template.html'
+      templateUrl: 'customers/templates/details-directive.template.html'
     };
   });
 })();

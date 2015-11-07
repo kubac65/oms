@@ -10,19 +10,15 @@
 
 		$scope.add = function(){
 			var modalInstance = $modal.open({
-				templateUrl: 'customers/customer-addnew-modal.template.html',
+				templateUrl: 'customers/templates/addnew-modal.template.html',
 				size: 'lg',
 				controller: 'CustomersAddController',
-			});
-
-			modalInstance.result.then(function(newCustomer){
-				customersService.add(newCustomer);
 			});
 		};
 
 		$scope.remove = function(customer){
 			var modalInstance = $modal.open({
-					templateUrl: 'customers/customer-remove-modal.template.html',
+					templateUrl: 'customers/templates/customer-remove-modal.template.html',
 					size: 'lg',
 					controller: 'CustomersRemoveController',
 					resolve: {
@@ -39,7 +35,7 @@
 
 		$scope.details = function(customer){
 			var modalInstance = $modal.open({
-				templateUrl: 'customers/customer-details-modal.template.html',
+				templateUrl: 'customers/templates/details-modal.template.html',
 				size: 'lg',
 				controller: 'CustomersDetailsController',
 				resolve: {
@@ -60,13 +56,32 @@
 	}
 
 	app.controller('CustomersAddController', addCtrl);
-	addCtrl.$inject = ['$scope', '$modalInstance',];
+	addCtrl.$inject = ['$scope', '$modalInstance', 'customersService'];
 
-	function addCtrl($scope, $modalInstance){
+	function addCtrl($scope, $modalInstance, customersService){
 		$scope.customer = {};
 
 		$scope.add = function(){
-			$modalInstance.close($scope.customer);
+			var promise = customersService.add($scope.customer);
+				promise.then(function success(customer){
+					$modalInstance.close(customer);
+				}, function error(err){
+					alert('Dupa');
+					throw err;
+				});
+
+
+			/*$modalInstance.result
+				.then(function(newCustomer){
+					try{
+
+					}
+					catch(e){
+						alert(e);
+					}
+
+				});
+				$modalInstance.close($scope.customer);*/
 		};
 
 		$scope.cancel = function(){

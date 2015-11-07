@@ -2,9 +2,9 @@
 	var app = angular.module('oms.customers.service', ['dpd']);
 
 	app.service('customersService', customerService);
-	customerService.$inject = ['$http', 'dpd'];
+	customerService.$inject = ['$http', '$q', 'dpd'];
 
-	function customerService($http, dpd){
+	function customerService($http, $q, dpd){
 		var customers = [];
 
 		// customer list from the backend
@@ -39,14 +39,18 @@
 		}
 
 		this.add = function(customer){
-			dpd.customers.post(customer)
-				.success(function(res){
-					customer.custId=res.custId;
-					customers.push(customer);
-				})
-				.error(function(err){
-					throw(err);
-				});
+			var defer = $q.defer()
+			var promise = dpd.customers.post(customer);
+
+			promise.success(function(res){
+				customer.custId=res.custId;
+				customers.push(customer);
+				defer.resolve(customer);
+			})
+			.error(function(err){
+				defer.reject(err);
+			});
+			return defer.promise;
     }
 
 		this.remove = function(customer){
