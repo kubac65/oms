@@ -83,12 +83,14 @@ gulp.task('concat-js', function(done){
 
 gulp.task('compile-templates', function(done){
 	var paths = {
-		src: './www/**/*.template.html',
+		src: './www/**/templates/*.template.html',
 		dst: './www/js/'
 	}
 	gulp.src(paths.src)
-        .pipe(templateCache({ standalone:true }))
-				//.pipe(uglify())
+        .pipe(templateCache({ 
+						standalone:true
+					}))
+				.pipe(uglify())
 				.pipe(gulp.dest(paths.dst));
 	done();
 });

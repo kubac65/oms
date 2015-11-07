@@ -6,6 +6,8 @@
 	var bodyParser = require('body-parser');
 
 	var deployd = require('deployd');
+
+	// Set up Deployd
 	var options = {
 		port: 9000,
 		db: {
@@ -16,33 +18,19 @@
 	var dpd = deployd(options);
 	dpd.listen();
 
+	var app = express();
 
-	var	custRoutes = require('./routes/customer.js');
+	// Register middleware
+	app.use(bodyParser.json());
 
-	var dbHost = 'mongodb://localhost/oms';
+	// Routers
+	app.use(express.static(__dirname +  '/www'));
 	var port = 8090;
-
-	mongoose.connect(dbHost, function(err){
-		if (err){
+	app.listen(port, function(err){
+		if(err){
 			throw err;
 		}
-		console.log('Connected to MongoDB');
 
-		var app = express();
-
-		// Register middleware
-		app.use(bodyParser.json());
-
-		// Routers
-		app.use(express.static(__dirname +  '/www'));
-		app.use('/api/customers', custRoutes);
-
-		app.listen(port, function(err){
-			if(err){
-				throw err;
-			}
-
-			console.log("OMS started on port: " + port);
-		});
+		console.log("OMS started on port: " + port);
 	});
 })();

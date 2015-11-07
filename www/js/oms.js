@@ -10,7 +10,7 @@
 				})
 				.state('customers', {
 					url: '/customers',
-					templateUrl: 'customers/customers.template.html',
+					templateUrl: 'customers/templates/customers.template.html',
 					resolve: {
 						'FetchCustomerData': function(customersService){
 							return customersService.promise;
