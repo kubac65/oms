@@ -9,10 +9,6 @@
 
 		// customer list from the backend
 		this.promise = getAll();
-		/*this.promise = dpd.customers.get()
-			.success(function(res){
-				customers = res;
-			});*/
 
 		function getAll(){
 			return dpd.customers.get()
@@ -39,7 +35,7 @@
 		}
 
 		this.add = function(customer){
-			var defer = $q.defer()
+			var defer = $q.defer();
 			var promise = dpd.customers.post(customer);
 
 			promise.success(function(res){
@@ -50,34 +46,44 @@
 			.error(function(err){
 				defer.reject(err);
 			});
+
 			return defer.promise;
     }
 
 		this.remove = function(customer){
-			dpd.customers.del(customer.id)
-				.success(function(res){
-					var index = customers.indexOf(customer);
-					customers.splice(index, 1);
-					delete customer;
-				})
-				.error(function(err){
-					throw(err);
-				});
+			var defer = $q.defer();
+			var promise = dpd.customers.del(customer.id);
+
+			promise.success(function(res){
+				var index = customers.indexOf(customer);
+				customers.splice(index, 1);
+				delete customer;
+				defer.resolve();
+			})
+			.error(function(err){
+				defer.reject(err);
+			});
+
+			return defer.promise;
     }
 
 		this.update = function(customer){
-			dpd.customers.put(customer.id, {
+			var defer = $q.defer();
+			var promise = dpd.customers.put(customer.id, {
 				name: customer.name,
 				address: customer.address,
 				email: customer.email,
 				phone: customer.phone
+			});
+
+			promise.success(function(res){
+				defer.resolve(customer);
 			})
-				.success(function(res){
-					console.log(res);
-				})
-				.error(function(err){
-					throw err;
-				});
+			.error(function(err){
+				defer.reject(err);
+			});
+
+			return defer.promise;
 		}
 	}
 })();

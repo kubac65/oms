@@ -67,7 +67,7 @@ gulp.task('concat-js', function(done){
 	var paths = {
 		src : [
 			'./www/js/oms.js',
-			'./www/customers/*.js',
+			'./www/customers/module.js','./www/customers/*.js',
 			'./www/orders/*.js',
 		],
 		dst : './www/js/app.js'
@@ -87,7 +87,7 @@ gulp.task('compile-templates', function(done){
 		dst: './www/js/'
 	}
 	gulp.src(paths.src)
-        .pipe(templateCache({ 
+        .pipe(templateCache({
 						standalone:true
 					}))
 				.pipe(uglify())
