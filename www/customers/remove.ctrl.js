@@ -1,8 +1,11 @@
 (function(){
+  'use strict';
+
   angular.module('oms.customers')
     .controller('CustomersRemoveController', removeCtrl);
 
   removeCtrl.$inject = ['$scope', '$modalInstance', 'customersService', 'customer'];
+  
 	function removeCtrl($scope, $modalInstance, customersService, customer){
 		$scope.customer = customer;
 

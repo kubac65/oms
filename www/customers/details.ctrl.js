@@ -1,4 +1,6 @@
 (function(){
+  'use strict';
+  
   angular.module('oms.customers')
   	.controller('CustomersDetailsController', detailsCtrl);
 

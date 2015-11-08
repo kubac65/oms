@@ -1,7 +1,9 @@
 (function(){
-	var app = angular.module('oms.customers.service', ['dpd']);
+	'use strict';
 
-	app.service('customersService', customerService);
+	angular.module('oms.customers.service', ['dpd'])
+		.service('customersService', customerService);
+		
 	customerService.$inject = ['$http', '$q', 'dpd'];
 
 	function customerService($http, $q, dpd){

@@ -1,11 +1,12 @@
 (function(){
-  var app = angular.module('oms.customers.directives', []);
+  'use strict';
 
-  app.directive('customerDetails', function(){
-    return {
-      restrict: 'E',
-      replace: true,
-      templateUrl: 'customers/templates/details-directive.template.html'
-    };
-  });
+  angular.module('oms.customers.directives', [])
+    .directive('customerDetails', function(){
+      return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'customers/templates/details-directive.template.html'
+      };
+    });
 })();
