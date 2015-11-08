@@ -1,9 +1,9 @@
 (function(){
 	'use strict';
 
-	angular.module('oms.customers.service', ['dpd'])
+	angular.module('oms.customers')
 		.service('customersService', customerService);
-		
+
 	customerService.$inject = ['$http', '$q', 'dpd'];
 
 	function customerService($http, $q, dpd){
@@ -59,7 +59,6 @@
 			promise.success(function(res){
 				var index = customers.indexOf(customer);
 				customers.splice(index, 1);
-				delete customer;
 				defer.resolve();
 			})
 			.error(function(err){

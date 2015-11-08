@@ -1,6 +1,6 @@
 (function(){
 	'use strict';
-	
+
 	angular.module('oms.customers')
 		.controller('CustomersListController', listCtrl);
 

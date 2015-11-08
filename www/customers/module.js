@@ -1,5 +1,5 @@
 (function(){
   'use strict';
 
-  angular.module('oms.customers', ['oms.customers.directives', 'oms.customers.service', 'ui.bootstrap']);
+  angular.module('oms.customers', ['ui.bootstrap', 'dpd']);
 })();

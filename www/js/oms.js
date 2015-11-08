@@ -1,13 +1,9 @@
 (function(){
-	angular.module('oms', ['ui.router', 'oms.customers', 'oms.orders', 'templates', 'dpd'])
+	angular.module('oms', ['ui.router', 'oms.customers', 'templates', 'dpd'])
 		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 			$urlRouterProvider.otherwise('/customers');
 
 			$stateProvider
-				.state('orders', {
-					url: '/orders',
-					templateUrl: 'orders/orders.template.html'
-				})
 				.state('customers', {
 					url: '/customers',
 					templateUrl: 'customers/templates/customers.template.html',

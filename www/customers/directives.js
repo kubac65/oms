@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('oms.customers.directives', [])
+  angular.module('oms.customers')
     .directive('customerDetails', function(){
       return {
         restrict: 'E',
