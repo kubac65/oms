@@ -8,8 +8,17 @@
 					url: '/customers',
 					templateUrl: 'customers/templates/customers.template.html',
 					resolve: {
-						'FetchCustomerData': function(customersService){
-							return customersService.promise;
+						'FetchCustomerData': function(CustomersService){
+							return CustomersService.getAll();
+						}
+					}
+				})
+				.state('orders', {
+					url: '/orders',
+					templateUrl: 'orders/templates/orders.template.html',
+					resolve: {
+						'FetchOrdersData': function(){
+							return null;
 						}
 					}
 				});

@@ -1,17 +1,17 @@
 (function(){
   'use strict';
-  
+
   angular.module('oms.customers')
   	.controller('CustomersDetailsController', detailsCtrl);
 
-	detailsCtrl.$inject = ['$scope', '$modalInstance', 'customersService', 'customer'];
+	detailsCtrl.$inject = ['$scope', '$modalInstance', 'CustomersService', 'customer'];
 
-	function detailsCtrl($scope, $modalInstance, customerService, customer){
+	function detailsCtrl($scope, $modalInstance, CustomersService, customer){
 		$scope.customer = {};
 		angular.copy(customer, $scope.customer)
 
 		$scope.update = function(){
-			var promise = customerService.update($scope.customer);
+			var promise = CustomersService.update($scope.customer);
       promise.then(function success(){
         $modalInstance.close($scope.customer);
       }, function error(err){

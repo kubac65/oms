@@ -4,11 +4,10 @@
 	angular.module('oms.customers')
 		.controller('CustomersListController', listCtrl);
 
-	listCtrl.$inject = ['$scope', '$modal', 'customersService'];
+	listCtrl.$inject = ['$scope', '$modal', 'CustomersService'];
 
-	function listCtrl($scope, $modal, customersService){
-		//$scope.customers = customersService.customers;
-		$scope.customers = customersService.getAll();
+	function listCtrl($scope, $modal, CustomersService){
+		$scope.customers = CustomersService.customers;
 
 		$scope.add = function(){
 			var modalInstance = $modal.open({
@@ -49,7 +48,7 @@
 		};
 
 		$scope.search = function(phrase){
-			customersService.search(phrase);
+			CustomersService.search(phrase);
 		};
 	}
 })();

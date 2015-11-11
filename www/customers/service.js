@@ -2,34 +2,34 @@
 	'use strict';
 
 	angular.module('oms.customers')
-		.service('customersService', customerService);
+		.service('CustomersService', CustomersService);
 
-	customerService.$inject = ['$http', '$q', 'dpd'];
+	CustomersService.$inject = ['$http', '$q', 'dpd'];
 
-	function customerService($http, $q, dpd){
-		var customers = [];
+	function CustomersService($http, $q, dpd){
+		this.customers = [];
+		
+		var _this = this;
 
-		// customer list from the backend
-		this.promise = getAll();
+		this.getAll =  function(){
+			var defer = $q.defer();
+			var promise = dpd.customers.get();
 
-		function getAll(){
-			return dpd.customers.get()
-				.success(function(res){
-					//angular.copy(res, customers)
-					customers = res;
-				})
-				.error(function(err){
-					throw err;
-				});
+			promise.success(function(res){
+				angular.copy(res, _this.customers)
+				defer.resolve(_this.customers);
+			})
+			.error(function(err){
+				defer.reject(err);
+			});
+
+			return defer.promise;
 		}
-		this.getAll = function(){
-			return customers;
-		};
 
 		this.search = function(phrase){
 				dpd.customers.get({$or: [{name: phrase}, {custId: phrase}]})
 					.success(function(res){
-						angular.copy(res,customers);
+						angular.copy(res,_this.customers);
 					})
 					.error(function(err){
 						throw err;
@@ -42,7 +42,7 @@
 
 			promise.success(function(res){
 				customer.custId=res.custId;
-				customers.push(customer);
+				_this.customers.push(customer);
 				defer.resolve(customer);
 			})
 			.error(function(err){
@@ -57,8 +57,8 @@
 			var promise = dpd.customers.del(customer.id);
 
 			promise.success(function(res){
-				var index = customers.indexOf(customer);
-				customers.splice(index, 1);
+				var index = _this.customers.indexOf(customer);
+				_this.customers.splice(index, 1);
 				defer.resolve();
 			})
 			.error(function(err){
