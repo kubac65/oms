@@ -10,12 +10,12 @@
 		$scope.customer = customer;
 
 		$scope.yes = function(){
-      var promise = CustomersService.remove(customer);
-      promise.then(function success(){
-        $modalInstance.close();
-      }, function error(err){
-        throw err;
-      });
+      CustomersService.remove(customer)
+        .then(function success(){
+          $modalInstance.close();
+        }, function error(err){
+          throw err;
+        });
 		};
 
 		$scope.no = function(){

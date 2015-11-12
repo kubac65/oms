@@ -10,8 +10,8 @@
 		$scope.customer = {};
 
 		$scope.add = function(){
-			var promise = CustomersService.add($scope.customer);
-				promise.then(function success(customer){
+			CustomersService.add($scope.customer)
+				.then(function success(customer){
 					$modalInstance.close(customer);
 				}, function error(err){
 					$modalInstance.dismiss();

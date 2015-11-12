@@ -11,12 +11,12 @@
 		angular.copy(customer, $scope.customer)
 
 		$scope.update = function(){
-			var promise = CustomersService.update($scope.customer);
-      promise.then(function success(){
-        $modalInstance.close($scope.customer);
-      }, function error(err){
-        throw err;
-      });
+			CustomersService.update($scope.customer)
+        .then(function success(){
+          $modalInstance.close($scope.customer);
+        }, function error(err){
+          throw err;
+        });
 		};
 
 		$scope.cancel = function(){

@@ -18,7 +18,7 @@
 		};
 
 		$scope.remove = function(customer){
-			var modalInstance = $modal.open({
+			$modal.open({
 					templateUrl: 'customers/templates/remove-modal.template.html',
 					size: 'lg',
 					controller: 'CustomersRemoveController',
