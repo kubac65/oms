@@ -1,0 +1,13 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"email": {
+			"name": "email",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "email",
+			"order": 0
+		}
+	}
+}

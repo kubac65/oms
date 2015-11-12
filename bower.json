@@ -5,6 +5,7 @@
     "angular-ui-router": "^0.2.15",
     "angular": "^1.4.1",
     "bootstrap": "^3.3.4",
-    "angular-dpd": "git://github.com/slively/angular-dpd.git"
+    "angular-dpd": "git://github.com/slively/angular-dpd.git",
+    "angular-ui-select3": "ui-select#*"
   }
 }

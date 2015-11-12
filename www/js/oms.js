@@ -1,5 +1,5 @@
 (function(){
-	angular.module('oms', ['ui.router', 'oms.customers', 'templates', 'dpd'])
+	angular.module('oms', ['ui.router', 'oms.customers', 'oms.orders', 'templates', 'dpd'])
 		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 			$urlRouterProvider.otherwise('/customers');
 
@@ -17,8 +17,8 @@
 					url: '/orders',
 					templateUrl: 'orders/templates/orders.template.html',
 					resolve: {
-						'FetchOrdersData': function(){
-							return null;
+						'FetchOrdersData': function(OrdersService){
+							return OrdersService.getAll();
 						}
 					}
 				});

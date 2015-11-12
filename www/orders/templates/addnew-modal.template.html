@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h3 class="modal-title">New Order</h3>
+</div>
+<form name="addOrderForm" novalidate ng-submit="add()">
+  <div class="modal-body">
+    <div class="row margin-top">
+      <div class="col-md-6">
+        <label for="add-order-customer">Customer</label>
+        <input type="text" name="customer" id="add-order-customer" class="form-control margin-bottom" placeholder="Customer" ng-model="order.customer" required>
+        <label for="add-order-ref">Ref</label>
+        <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="order.ref">
+      </div>
+      <div class="col-md-6">
+        <label for="add-order-orderDate">Order Date</label>
+        <p class="input-group margin-bottom">
+          <input id="add-order-orderDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <label for="add-order-dueDate">Due Date</label>
+        <p class="input-group margin-bottom">
+          <input id="add-order-dueDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
+    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+  </div>
+</form>

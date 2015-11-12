@@ -40,6 +40,14 @@
 			"required": true,
 			"id": "phone",
 			"order": 4
+		},
+		"created": {
+			"name": "created",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "created",
+			"order": 5
 		}
 	}
 }

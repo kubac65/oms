@@ -33,7 +33,7 @@ gulp.task('copy-bootstrap', function(done){
 		cssSrc : './www/lib/bootstrap/dist/css/bootstrap.min.css',
 		cssDst : './www/css/',
 		fontsSrc : './www/lib/bootstrap/dist/fonts/*',
-		fontsDst : './www/fonts'
+		fontsDst : './www/fonts/'
 	};
 
 	gulp.src(paths.cssSrc)
@@ -68,7 +68,7 @@ gulp.task('concat-js', function(done){
 		src : [
 			'./www/js/oms.js',
 			'./www/customers/module.js','./www/customers/*.js',
-			'./www/orders/*.js',
+			'./www/orders/module.js','./www/orders/*.js'
 		],
 		dst : './www/js/app.js'
 	}

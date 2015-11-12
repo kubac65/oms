@@ -4,11 +4,11 @@
 	angular.module('oms.customers')
 		.service('CustomersService', CustomersService);
 
-	CustomersService.$inject = ['$http', '$q', 'dpd'];
+	CustomersService.$inject = ['$q', 'dpd'];
 
-	function CustomersService($http, $q, dpd){
+	function CustomersService($q, dpd){
 		this.customers = [];
-		
+
 		var _this = this;
 
 		this.getAll =  function(){

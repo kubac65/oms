@@ -10,7 +10,7 @@
 		$scope.customers = CustomersService.customers;
 
 		$scope.add = function(){
-			var modalInstance = $modal.open({
+			$modal.open({
 				templateUrl: 'customers/templates/addnew-modal.template.html',
 				size: 'lg',
 				controller: 'CustomersAddController',
