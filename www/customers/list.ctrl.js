@@ -4,13 +4,13 @@
 	angular.module('oms.customers')
 		.controller('CustomersListController', listCtrl);
 
-	listCtrl.$inject = ['$scope', '$modal', 'CustomersService'];
+	listCtrl.$inject = ['$scope', '$uibModal', 'CustomersService'];
 
-	function listCtrl($scope, $modal, CustomersService){
+	function listCtrl($scope, $uibModal, CustomersService){
 		$scope.customers = CustomersService.customers;
 
 		$scope.add = function(){
-			$modal.open({
+			$uibModal.open({
 				templateUrl: 'customers/templates/addnew-modal.template.html',
 				size: 'lg',
 				controller: 'CustomersAddController',
@@ -18,7 +18,7 @@
 		};
 
 		$scope.remove = function(customer){
-			$modal.open({
+			$uibModal.open({
 					templateUrl: 'customers/templates/remove-modal.template.html',
 					size: 'lg',
 					controller: 'CustomersRemoveController',
@@ -31,7 +31,7 @@
 		};
 
 		$scope.details = function(customer){
-			var modalInstance = $modal.open({
+			var uibModalInstance = $uibModal.open({
 				templateUrl: 'customers/templates/details-modal.template.html',
 				size: 'lg',
 				controller: 'CustomersDetailsController',
@@ -42,7 +42,7 @@
 				}
 			});
 
-			modalInstance.result.then(function(updatedCustomer){
+			uibModalInstance.result.then(function(updatedCustomer){
 				angular.extend(customer, updatedCustomer);
 			});
 		};

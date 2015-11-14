@@ -4,22 +4,22 @@
   angular.module('oms.customers')
     .controller('CustomersAddController', addCtrl);
 
-  addCtrl.$inject = ['$scope', '$modalInstance', 'CustomersService'];
+  addCtrl.$inject = ['$scope', '$uibModalInstance', 'CustomersService'];
 
-	function addCtrl($scope, $modalInstance, CustomersService){
+	function addCtrl($scope, $uibModalInstance, CustomersService){
 		$scope.customer = {};
 
 		$scope.add = function(){
 			CustomersService.add($scope.customer)
 				.then(function success(customer){
-					$modalInstance.close(customer);
+					$uibModalInstance.close(customer);
 				}, function error(err){
-					$modalInstance.dismiss();
+					$uibModalInstance.dismiss();
 				});
 		};
 
 		$scope.cancel = function(){
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
 		};
 	}
 })();

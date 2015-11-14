@@ -4,23 +4,23 @@
   angular.module('oms.customers')
   	.controller('CustomersDetailsController', detailsCtrl);
 
-	detailsCtrl.$inject = ['$scope', '$modalInstance', 'CustomersService', 'customer'];
+	detailsCtrl.$inject = ['$scope', '$uibModalInstance', 'CustomersService', 'customer'];
 
-	function detailsCtrl($scope, $modalInstance, CustomersService, customer){
+	function detailsCtrl($scope, $uibModalInstance, CustomersService, customer){
 		$scope.customer = {};
 		angular.copy(customer, $scope.customer)
 
 		$scope.update = function(){
 			CustomersService.update($scope.customer)
         .then(function success(){
-          $modalInstance.close($scope.customer);
+          $uibModalInstance.close($scope.customer);
         }, function error(err){
           throw err;
         });
 		};
 
 		$scope.cancel = function(){
-			$modalInstance.dismiss();
+			$uibModalInstance.dismiss();
 		};
 	}
 })();
