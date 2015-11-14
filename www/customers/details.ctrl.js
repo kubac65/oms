@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('oms.customers')
-  	.controller('CustomersDetailsController', detailsCtrl);
+  	.controller('CustomerUpdateController', updateCtrl);
 
-	detailsCtrl.$inject = ['$scope', '$uibModalInstance', 'CustomersService', 'customer'];
+	updateCtrl.$inject = ['$scope', '$uibModalInstance', 'CustomersService', 'customer'];
 
-	function detailsCtrl($scope, $uibModalInstance, CustomersService, customer){
+	function updateCtrl($scope, $uibModalInstance, CustomersService, customer){
 		$scope.customer = {};
 		angular.copy(customer, $scope.customer)
 

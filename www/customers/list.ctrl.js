@@ -30,11 +30,11 @@
 			});
 		};
 
-		$scope.details = function(customer){
+		$scope.update = function(customer){
 			var uibModalInstance = $uibModal.open({
-				templateUrl: 'customers/templates/details-modal.template.html',
+				templateUrl: 'customers/templates/update-modal.template.html',
 				size: 'lg',
-				controller: 'CustomersDetailsController',
+				controller: 'CustomerUpdateController',
 				resolve: {
 						customer: function(){
 							return customer;
