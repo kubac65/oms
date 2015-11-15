@@ -50,17 +50,29 @@
           <thead>
             <tr>
               <th class="col-md-3">Label</th>
-              <th class="col-md-3">Qty</th>
-              <th class="col-md-3">Unit Price</th>
-              <th class="col-md-2">File</th>
-              <th class="col-md-1">&nbsp;</th>
+              <th class="col-md-1">Qty</th>
+              <th class="col-md-2">Unit Price</th>
+              <th class="col-md-2">Sub Total</th>
+              <th class="col-md-2">Attachment</th>
+              <th class="col-md-2">&nbsp;</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><strong style="float:right">Total</strong></td>
+              <td>{{order.total}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </tfoot>
           <tbody>
             <tr ng-repeat="i in order.items">
               <td>{{i.label}}</td>
               <td>{{i.quantity}}</td>
               <td>{{i.unitPrice}}</td>
+              <td>{{i.quantity * i.unitPrice}}</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
@@ -68,6 +80,7 @@
               <td><input type="text" ng-model="item.label"></td>
               <td><input type="number" ng-model="item.quantity"></td>
               <td><input type="number" ng-model="item.unitPrice"></td>
+              <td>{{(item.quantity * item.unitPrice) || 0}}</td>
               <td><input type="checkbox"></td>
               <td>
                 <button type="button" class="btn btn-success" ng-click="addItem(item)"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>

@@ -1,4 +1,5 @@
 @import "bootstrap";
+
 .oms{
 	.form-control-inline{
 		width: auto;
@@ -24,20 +25,17 @@
 	}
 
 	input.ng-invalid.ng-touched,
-	textarea.ng-invalid.ng-touched{
-		@extend .alert-danger;
-	}
-	select.ng-invalid.ng-touched,
-	textarea.ng-invalid.ng-touched{
+	textarea.ng-invalid.ng-touched,
+	select.ng-invalid.ng-touched{
 		@extend .alert-danger;
 	}
 
-	input.ng-valid.ng-touched,
+	/*input.ng-valid.ng-touched,
 	textarea.ng-valid.ng-touched{
 		@extend .alert-success;
 	}
 	select.ng-valid.ng-touched,
 	textarea.ng-valid.ng-touched{
 		@extend .alert-success;
-	}
+	}*/
 }

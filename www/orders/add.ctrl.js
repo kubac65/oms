@@ -29,7 +29,8 @@
       orderDate: new Date(),
       dueDate: new Date(),
       status: $scope.statuses[0].value,
-      items: []
+      items: [],
+      total: 0
     }
 
     $scope.item = {};
@@ -58,6 +59,7 @@
 
     $scope.addItem = function(item) {
       $scope.order.items.push(item);
+      $scope.order.total += item.quantity * item.unitPrice;
       $scope.item = {};
     }
 
