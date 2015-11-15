@@ -12,8 +12,25 @@
       $uibModal.open({
 				templateUrl: 'orders/templates/addnew-modal.template.html',
 				size: 'lg',
-				controller:  'OrderAddController',
+				controller: 'AddOrderController'
 			});
+    }
+
+    $scope.edit = function(order) {
+
+    }
+
+    $scope.remove = function(order) {
+      $uibModal.open({
+        templateUrl: 'orders/templates/remove-modal.template.html',
+        size:'lg',
+        controller: 'RemoveOrderController',
+        resolve: {
+          order: function() {
+            return order;
+          }
+        }
+      });
     }
   }
 })();

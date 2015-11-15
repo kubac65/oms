@@ -43,8 +43,41 @@
       return defer.promise;
     }
 
-    this.remove = function(customer) {
+    this.update = function(order) {
+      var defer = $q.defer();
 
+      dpd.orders.put(order.id, {
+        custId: order.custId,
+        orderDate: order.orderDate,
+        dueDate: order.dueDate,
+        status: order.status,
+        items: order.items,
+        ref: order.ref
+      })
+        .success(function(res) {
+          defer.resolve(order);
+        })
+        .error(function(err) {
+          defer.reject(err);
+        });
+
+      return defer.promise;
+    }
+
+    this.remove = function(order) {
+      var defer = $q.defer();
+
+      dpd.orders.del(order.id)
+        .success(function(res) {
+          var index = _this.orders.indexOf(order);
+          _this.orders.splice(index, 1);
+          defer.resolve();
+        })
+        .error(function(err){
+          defer.reject(err);
+        })
+
+      return defer.promise;
     }
   }
 })();
