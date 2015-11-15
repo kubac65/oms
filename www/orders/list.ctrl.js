@@ -3,16 +3,16 @@
   angular.module('oms.orders')
     .controller('OrdersListController', listCtrl);
 
-  listCtrl.$inject = ['$scope', '$modal', 'OrdersService'];
+  listCtrl.$inject = ['$scope', '$uibModal', 'OrdersService'];
 
-  function listCtrl($scope, $modal, OrdersService) {
+  function listCtrl($scope, $uibModal, OrdersService) {
     $scope.orders = OrdersService.orders;
 
     $scope.add = function(){
-      $modal.open({
+      $uibModal.open({
 				templateUrl: 'orders/templates/addnew-modal.template.html',
 				size: 'lg',
-				controller:  'CustomersAddController',
+				controller:  'OrderAddController',
 			});
     }
   }

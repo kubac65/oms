@@ -1,35 +1,52 @@
 <div class="modal-header">
   <h3 class="modal-title">New Order</h3>
 </div>
-<form name="addOrderForm" novalidate ng-submit="add()">
+<form name="addOrderForm" novalidate ng-submit="save()">
   <div class="modal-body">
     <div class="row margin-top">
       <div class="col-md-6">
         <label for="add-order-customer">Customer</label>
-        <input type="text" name="customer" id="add-order-customer" class="form-control margin-bottom" placeholder="Customer" ng-model="order.customer" required>
+
+        <p class="input-group margin-bottom">
+          <ui-select required ng-model="order.customer"
+                      theme="bootstrap">
+            <ui-select-match placeholder="Select Customer">
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="customer in (customers | filter: $select.search) track by customer.custId">
+              <span ng-bind="customer.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-success" ng-click="addCustomer()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add New</button>
+          </span>
+        </p>
+
         <label for="add-order-ref">Ref</label>
         <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="order.ref">
       </div>
-      <div class="col-md-6">
+
+      <div class="col-md-6" >
         <label for="add-order-orderDate">Order Date</label>
-        <p class="input-group margin-bottom">
-          <input id="add-order-orderDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+        <p class="input-group margin-bottom" ng-controller="DatepickerController">
+          <input type="text" name="orderDate" id="add-order-orderDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.order.orderDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
         <label for="add-order-dueDate">Due Date</label>
-        <p class="input-group margin-bottom">
-          <input id="add-order-dueDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+        <p class="input-group margin-bottom" ng-controller="DatepickerController">
+          <input type="text" name="dueDate" id="add-order-dueDate"  class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.order.dueDate" min-date="$parent.order.orderDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
+
     </div>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
-    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
   </div>
 </form>

@@ -19,6 +19,9 @@
 					resolve: {
 						'FetchOrdersData': function(OrdersService){
 							return OrdersService.getAll();
+						},
+						'FetchCustomerData': function(CustomersService){
+							return CustomersService.getAll();
 						}
 					}
 				});

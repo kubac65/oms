@@ -17,6 +17,12 @@
 		width: 100%;
 	}
 
+	.ui-select-match{
+		span{
+			border-radius: 4px 0 0 4px !important;
+		}
+	}
+
 	input.ng-invalid.ng-touched,
 	textarea.ng-invalid.ng-touched{
 		@extend .alert-danger;
