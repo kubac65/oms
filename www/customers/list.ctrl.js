@@ -13,7 +13,7 @@
 			$uibModal.open({
 				templateUrl: 'customers/templates/addnew-modal.template.html',
 				size: 'lg',
-				controller: 'CustomersAddController',
+				controller: 'AddCustomerController',
 			});
 		};
 
@@ -21,7 +21,7 @@
 			$uibModal.open({
 					templateUrl: 'customers/templates/remove-modal.template.html',
 					size: 'lg',
-					controller: 'CustomersRemoveController',
+					controller: 'RemoveCustomerController',
 					resolve: {
 							customer: function(){
 								return customer;

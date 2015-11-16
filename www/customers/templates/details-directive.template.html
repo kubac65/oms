@@ -10,8 +10,8 @@
   <div class="col-md-6">
     <label>Address</label>
     <textarea name="address" class="form-control margin-bottom" style="resize:none" rows=5 placeholder="Address" ng-model="customer.address" required></textarea>
-    <div class="alert alert-danger form-control">
-      Errors Occured
+    <div class="alert alert-danger" ng-show="error">
+      There was a problem with processing your request.
     </div>
   </div>
 </div>

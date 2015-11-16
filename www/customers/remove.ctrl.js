@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('oms.customers')
-    .controller('CustomersRemoveController', removeCtrl);
+    .controller('RemoveCustomerController', removeCtrl);
 
   removeCtrl.$inject = ['$scope', '$uibModalInstance', 'CustomersService', 'customer'];
 
