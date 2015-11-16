@@ -1,11 +1,11 @@
 var _this = this;
 
 var query = {
-    id: {$ne: null},
-    custId: _this.custId
+    'id': {$ne: null},
+    'customer.id': this.id
 };
 
 dpd.orders.del(query, function(res,err) {
     if (err) throw err;
-    console.log('Removed orders for customer: ' + _this.name);
+    console.log('Removed ' + res.count +  ' orders for customer: ' + _this.name);
 });

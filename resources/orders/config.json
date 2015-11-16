@@ -9,45 +9,13 @@
 			"id": "ordId",
 			"order": 0
 		},
-		"custId": {
-			"name": "custId",
-			"type": "number",
-			"typeLabel": "number",
+		"customer": {
+			"name": "customer",
+			"type": "object",
+			"typeLabel": "object",
 			"required": true,
-			"id": "custId",
+			"id": "customer",
 			"order": 1
-		},
-		"orderDate": {
-			"name": "orderDate",
-			"type": "number",
-			"typeLabel": "number",
-			"required": true,
-			"id": "orderDate",
-			"order": 2
-		},
-		"dueDate": {
-			"name": "dueDate",
-			"type": "number",
-			"typeLabel": "number",
-			"required": true,
-			"id": "dueDate",
-			"order": 3
-		},
-		"status": {
-			"name": "status",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "status",
-			"order": 4
-		},
-		"items": {
-			"name": "items",
-			"type": "array",
-			"typeLabel": "array",
-			"required": false,
-			"id": "items",
-			"order": 5
 		},
 		"ref": {
 			"name": "ref",
@@ -55,7 +23,47 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "ref",
+			"order": 2
+		},
+		"orderDate": {
+			"name": "orderDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "orderDate",
+			"order": 3
+		},
+		"dueDate": {
+			"name": "dueDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "dueDate",
+			"order": 4
+		},
+		"status": {
+			"name": "status",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "status",
+			"order": 5
+		},
+		"items": {
+			"name": "items",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "items",
 			"order": 6
+		},
+		"total": {
+			"name": "total",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "total",
+			"order": 7
 		}
 	}
 }

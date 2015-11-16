@@ -2,36 +2,44 @@
   'use strict';
 
   angular.module('oms.orders')
-    .controller('AddOrderController', addOrderCtrl);
+    .controller('EditOrderController', editOrderCtrl);
 
-  addOrderCtrl.$inject = ['$scope', '$uibModal', '$uibModalInstance', 'OrdersService', 'CustomersService'];
+  editOrderCtrl.$inject = ['$scope', '$uibModal', '$uibModalInstance', 'OrdersService', 'CustomersService', 'order'];
 
-  function addOrderCtrl($scope, $uibModal, $uibModalInstance, OrdersService, CustomersService) {
+  function editOrderCtrl($scope, $uibModal, $uibModalInstance, OrdersService, CustomersService, order) {
     $scope.customers = CustomersService.customers;
     $scope.statuses = OrdersService.statuses;
     $scope.error = false;
 
-    $scope.order = {
-      customer: {},
-      orderDate: new Date(),
-      dueDate: new Date(),
-      status: $scope.statuses[0].value,
-      items: [],
-      total: 0
+    $scope.order = {};
+    angular.copy(order, $scope.order);
+
+    $scope.order.orderDate = new Date(order.orderDate);
+    $scope.order.dueDate = new Date(order.dueDate);
+
+    //Find selected
+    for (var i = 0; i < $scope.customers.length; i++) {
+      if ($scope.customers[i].id == $scope.order.customer.id) {
+        $scope.selected = {
+          customer: $scope.customers[i]
+        }
+        break;
+      }
     }
 
-    $scope.selected = {
-      customer: null
-    }
     $scope.newListItem = {};
 
     $scope.save = function() {
       $scope.order.customer.id = $scope.selected.customer.id;
       $scope.order.customer.name = $scope.selected.customer.name;
 
-      OrdersService.add($scope.order)
-        .then(function success(order) {
-          $uibModalInstance.close(order);
+      $uibModalInstance.result.then(function(updatedOrder){
+        angular.extend(order, updatedOrder);
+      });
+
+      OrdersService.update($scope.order)
+        .then(function success() {
+          $uibModalInstance.close($scope.order);
         }, function error(err) {
           $scope.error = true;
           throw err;
@@ -46,7 +54,6 @@
 			});
     }
 
-    //TODO clean up
     $scope.addItem = function(newListItem) {
       $scope.order.items.push(newListItem);
       $scope.order.total += newListItem.quantity * newListItem.unitPrice;

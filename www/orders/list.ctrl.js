@@ -17,7 +17,16 @@
     }
 
     $scope.edit = function(order) {
-
+      $uibModal.open({
+        templateUrl: 'orders/templates/edit-modal.template.html',
+        size:'lg',
+        controller: 'EditOrderController',
+        resolve: {
+          order: function() {
+            return order;
+          }
+        }
+      });
     }
 
     $scope.remove = function(order) {

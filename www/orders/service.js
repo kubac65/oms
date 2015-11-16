@@ -8,6 +8,20 @@
 
   function OrdersService($q, dpd){
     this.orders = [];
+    this.statuses = [
+      {
+        value: 'new',
+        label: 'New'
+      },
+      {
+        value: 'inprogress',
+        label: 'In Progress'
+      },
+      {
+        value: 'completed',
+        label: 'Completed'
+      }
+    ];
 
     var _this = this;
 
@@ -47,7 +61,10 @@
       var defer = $q.defer();
 
       dpd.orders.put(order.id, {
-        custId: order.custId,
+        customer: {
+          id: order.customer.id,
+          name: order.customer.name
+        },
         orderDate: order.orderDate,
         dueDate: order.dueDate,
         status: order.status,

@@ -45,10 +45,25 @@
             <tr ng-repeat="order in orders">
               <td>{{order.ordId}}</td>
               <td>{{order.customer.name}}</td>
-              <td>{{order.items}}</td>
+              <td>
+                <table class="table table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <td><strong>Label</strong></td>
+                      <td><strong>Quantity</strong></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in order.items">
+                      <td>{{item.label}}</td>
+                      <td>{{item.quantity}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
               <td>{{order.ref}}</td>
-              <td>{{order.orderDate}}</td>
-              <td>{{order.dueDate}}</td>
+              <td>{{order.orderDate | date:'dd MMMM yyyy'}}</td>
+              <td>{{order.dueDate | date:'dd MMMM yyyy'}}</td>
               <td>{{order.status}}</td>
               <td>
                 <div class="btn-group">

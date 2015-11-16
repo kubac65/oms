@@ -1,0 +1,101 @@
+<form name="addOrderForm" novalidate ng-submit="save()">
+  <div class="modal-body">
+    <div class="row margin-top">
+      <div class="col-md-6">
+        <label for="add-order-customer">Customer</label>
+        <p class="input-group margin-bottom">
+          <ui-select required ng-model="selected.customer"
+                      theme="bootstrap">
+            <ui-select-match placeholder="Select Customer">
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="customer in (customers | filter: $select.search) track by customer.custId">
+              <span ng-bind="customer.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-success" ng-click="addCustomer()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add New</button>
+          </span>
+        </p>
+        <label for="add-order-ref">Ref</label>
+        <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="order.ref">
+        <label for="add-order-status">Status</label>
+        <select class="form-control margin-bottom" ng-model="order.status" required>
+          <option ng-repeat="status in statuses" value="{{status.value}}">{{status.label}}</option>
+        </select>
+      </div>
+      <div class="col-md-6" >
+        <label for="add-order-orderDate">Order Date</label>
+        <p class="input-group margin-bottom" ng-controller="DatepickerController">
+          <input type="text" name="orderDate" id="add-order-orderDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.order.orderDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <label for="add-order-dueDate">Due Date</label>
+        <p class="input-group margin-bottom" ng-controller="DatepickerController">
+          <input type="text" name="dueDate" id="add-order-dueDate"  class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.order.dueDate" min-date="$parent.order.orderDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <div class="alert alert-danger" ng-show="error">
+          There was a problem with processing your request.
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top">
+      <div class="col-md-12 table-resoponsive">
+        <table class="table table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th class="col-md-2">Label</th>
+              <th class="col-md-1">Qty</th>
+              <th class="col-md-2">Unit Price</th>
+              <th class="col-md-2">Sub Total</th>
+              <th class="col-md-2">Attachment</th>
+              <th class="col-md-3">&nbsp;</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><strong style="float:right">Total</strong></td>
+              <td>{{order.total | currency: '€'}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr ng-repeat="i in order.items">
+              <td>{{i.label}}</td>
+              <td>{{i.quantity}}</td>
+              <td>{{i.unitPrice | currency: '€'}}</td>
+              <td>{{i.quantity * i.unitPrice | currency: '€'}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <form>
+                <td><input type="text" ng-model="newListItem.label"></td>
+                <td><input type="number" ng-model="newListItem.quantity"></td>
+                <td><input type="number" ng-model="newListItem.unitPrice"></td>
+                <td>{{(newListItem.quantity * newListItem.unitPrice) || 0 | currency: '€'}}</td>
+                <td>&nbsp;</td>
+                <td>
+                  <button type="button" class="btn btn-success" ng-click="addItem(newListItem)"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
+                  <button type="button" class="btn btn-danger" ng-click="clearItem()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+                </td>
+              </form>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
+    <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
