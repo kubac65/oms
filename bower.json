@@ -7,6 +7,7 @@
     "angular-dpd": "git://github.com/slively/angular-dpd.git",
     "angular-bootstrap": "~0.14.3",
     "ui-select": "angular-ui-select#~0.13.2",
-    "ngSanitize": "~0.0.2"
+    "ngSanitize": "~0.0.2",
+    "bootstrap-sass": "~3.3.5"
   }
 }

@@ -2,7 +2,6 @@
 	'use strict';
 
 	var express = require('express');
-	var mongoose = require('mongoose');
 	var bodyParser = require('body-parser');
 
 	var deployd = require('deployd');
@@ -11,7 +10,7 @@
 	var options = {
 		port: 9000,
 		db: {
-			connectionString: 'mongodb://localhost/oms'
+			connectionString: 'mongodb://dev.dsrms.com/oms'
 		}
 	}
 
@@ -25,7 +24,10 @@
 
 	// Routers
 	app.use(express.static(__dirname +  '/www'));
-	var port = 8090;
+
+	var port = process.env.PORT || 8090;
+
+
 	app.listen(port, function(err){
 		if(err){
 			throw err;
