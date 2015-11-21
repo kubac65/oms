@@ -11,8 +11,7 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "deployd": "^0.8.7",
-    "express": "^4.12.4",
-    "mongoose": "^4.1.10"
+    "express": "^4.12.4"
   },
   "repository": {
     "type": "git",

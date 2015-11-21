@@ -1,9 +1,13 @@
 (function(){
 	angular.module('oms', ['ui.router', 'oms.customers', 'oms.orders', 'templates', 'dpd'])
 		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise('/customers');
+			$urlRouterProvider.otherwise('/login');
 
 			$stateProvider
+				.state('login', {
+					url: '/login',
+					templateUrl: 'login/templates/login.template.html'
+				})
 				.state('customers', {
 					url: '/customers',
 					templateUrl: 'customers/templates/customers.template.html',
@@ -29,7 +33,7 @@
 
 		.value('dpdConfig', {
 			collections: ['customers', 'orders'],
-			serverRoot: 'http://localhost:9000/',
+		  serverRoot: 'http://localhost:9000/',
 			socketOptions: { reconnectionDelayMax: 3000},
 			useSocketIo: false,
 			noCache: true

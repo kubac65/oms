@@ -1,6 +1,13 @@
 @import "bootstrap";
 
 .oms{
+	.login{
+		form{
+			max-width: 330px;
+			margin: auto;
+		}
+	}
+
 	.form-control-inline{
 		width: auto;
 		display: inline-block;

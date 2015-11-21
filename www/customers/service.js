@@ -31,9 +31,7 @@
 
 			dpd.customers.post(customer)
 				.success(function(res){
-					customer.custId=res.custId;
-					_this.customers.push(customer);
-					defer.resolve(customer);
+					_this.customers.push(res);
 				})
 				.error(function(err){
 					defer.reject(err);
