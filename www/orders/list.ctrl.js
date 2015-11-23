@@ -12,7 +12,12 @@
       $uibModal.open({
 				templateUrl: 'orders/templates/addnew-modal.template.html',
 				size: 'lg',
-				controller: 'AddOrderController'
+				controller: 'EditOrderController as eoCtrl',
+        resolve: {
+          order: function() {
+            return {};
+          }
+        }
 			});
     }
 

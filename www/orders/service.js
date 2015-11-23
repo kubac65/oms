@@ -45,10 +45,8 @@
 
       dpd.orders.post(order)
         .success(function(res) {
-          order.ordId = res.ordId;
-          order.status = res.status;
-          _this.orders.push(order);
-          defer.resolve(order);
+          _this.orders.push(res);
+          defer.resolve(res);
         })
         .error(function(err) {
           defer.reject(err);

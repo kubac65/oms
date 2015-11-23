@@ -71,14 +71,32 @@
           </tfoot>
           <tbody>
             <tr order-item ng-repeat="i in order.items" item="i"></tr>
-            <tr order-item ng-show="addingNewItem" item="{}"></tr>
+            <tr ng-show="addingNewItem" ng-dblclick="oilCtrl.addItem()">
+              <td>
+                <input type="text" ng-model="newItem.label">
+              </td>
+              <td>
+                <input type="text" ng-model="newItem.quantity">
+              </td>
+              <td>
+                <input type="text" ng-model="newItem.unitPrice">
+              </td>
+              <td>
+                <span>{{newItem.quantity * newItem.unitPrice | currency: '€'}}</span>
+              </td>
+              <td></td>
+              <td>
+                <button type="button" class="btn btn-primary" ng-click="eoCtrl.saveItem()"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
+                <button type="button" class="btn btn-default" ng-click="eoCtrl.cancelItem()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-success" ng-disabled="eoCtrl.addOrderForm.$invalid">Save</button>
+    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
     <button type="button" class="btn btn-danger" ng-click="eoCtrl.cancel()">Cancel</button>
   </div>
 </form>
