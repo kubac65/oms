@@ -1,4 +1,4 @@
-<form name="addOrderForm" novalidate ng-submit="save()">
+<form name="addOrderForm" novalidate ng-submit="eoCtrl.save()">
   <div class="modal-body">
     <div class="row margin-top">
       <div class="col-md-6">
@@ -14,7 +14,7 @@
             </ui-select-choices>
           </ui-select>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-success" ng-click="addCustomer()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add New</button>
+            <button type="button" class="btn btn-success" ng-click="eoCtrl.addCustomer()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add New</button>
           </span>
         </p>
         <label for="add-order-ref">Ref</label>
@@ -59,7 +59,9 @@
           </thead>
           <tfoot>
             <tr>
-              <td>&nbsp;</td>
+              <td>
+                <button type="button" class="btn btn-primary" ng-click="eoCtrl.addItem()">Add item</button>
+              </td>
               <td>&nbsp;</td>
               <td><strong style="float:right">Total</strong></td>
               <td>{{order.total | currency: '€'}}</td>
@@ -68,34 +70,15 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr ng-repeat="i in order.items">
-              <td>{{i.label}}</td>
-              <td>{{i.quantity}}</td>
-              <td>{{i.unitPrice | currency: '€'}}</td>
-              <td>{{i.quantity * i.unitPrice | currency: '€'}}</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <form>
-                <td><input type="text" ng-model="newListItem.label"></td>
-                <td><input type="number" ng-model="newListItem.quantity"></td>
-                <td><input type="number" ng-model="newListItem.unitPrice"></td>
-                <td>{{(newListItem.quantity * newListItem.unitPrice) || 0 | currency: '€'}}</td>
-                <td>&nbsp;</td>
-                <td>
-                  <button type="button" class="btn btn-success" ng-click="addItem(newListItem)"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
-                  <button type="button" class="btn btn-danger" ng-click="clearItem()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
-                </td>
-              </form>
-            </tr>
+            <tr order-item ng-repeat="i in order.items" item="i"></tr>
+            <tr order-item ng-show="addingNewItem" item="{}"></tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
-    <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    <button type="submit" class="btn btn-success" ng-disabled="eoCtrl.addOrderForm.$invalid">Save</button>
+    <button type="button" class="btn btn-danger" ng-click="eoCtrl.cancel()">Cancel</button>
   </div>
 </form>

@@ -69,10 +69,11 @@
         dueDate: order.dueDate,
         status: order.status,
         items: order.items,
+        total: order.total,
         ref: order.ref
       })
         .success(function(res) {
-          defer.resolve(order);
+          defer.resolve(res);
         })
         .error(function(err) {
           defer.reject(err);

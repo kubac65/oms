@@ -20,7 +20,7 @@
       $uibModal.open({
         templateUrl: 'orders/templates/edit-modal.template.html',
         size:'lg',
-        controller: 'EditOrderController',
+        controller: 'EditOrderController as eoCtrl',
         resolve: {
           order: function() {
             return order;

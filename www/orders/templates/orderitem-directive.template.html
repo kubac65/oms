@@ -1,0 +1,23 @@
+<tr ng-dblclick="oilCtrl.edit()">
+  <td>
+    <span ng-hide="editing">{{item.label}}</span>
+    <input type="text" ng-show="editing" ng-model="editedItem.label">
+  </td>
+  <td>
+    <span ng-hide="editing">{{item.quantity}}</span>
+    <input type="text" ng-show="editing" ng-model="editedItem.quantity">
+  </td>
+  <td>
+    <span ng-hide="editing">{{item.unitPrice | currency: '€'}}</span>
+    <input type="text" ng-show="editing" ng-model="editedItem.unitPrice">
+  </td>
+  <td>
+    <span>{{item.quantity * item.unitPrice | currency: '€'}}</span>
+  </td>
+  <td></td>
+  <td>
+    <button type="button" ng-show="editing" class="btn btn-primary" ng-click="oilCtrl.save()"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
+    <button type="button" ng-show="editing" class="btn btn-default" ng-click="oilCtrl.cancel()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+    <button type="button" ng-hide="editing" class="btn btn-danger" ng-click="oilCtrl.remove()"><span aria-hidden="true" class="glyphicon glyphicon-trash"></span></button>
+  </td>
+</tr>
