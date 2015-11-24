@@ -32,6 +32,7 @@
 			dpd.customers.post(customer)
 				.success(function(res){
 					_this.customers.push(res);
+					defer.resolve(res);
 				})
 				.error(function(err){
 					defer.reject(err);

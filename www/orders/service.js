@@ -10,12 +10,24 @@
     this.orders = [];
     this.statuses = [
       {
-        value: 'new',
-        label: 'New'
+        value: 'quotation',
+        label: 'Quotation'
       },
       {
-        value: 'inprogress',
-        label: 'In Progress'
+        value: 'readyfordesign',
+        label: 'Ready for Design'
+      },
+      {
+        value: 'onproof',
+        label: 'On Proof'
+      },
+      {
+        value: 'readytoprint',
+        label: 'Ready To Print'
+      },
+      {
+        value: 'finishing',
+        label: 'Finishing'
       },
       {
         value: 'completed',
