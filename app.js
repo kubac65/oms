@@ -3,8 +3,10 @@
 
 	var express = require('express');
 	var bodyParser = require('body-parser');
-
 	var deployd = require('deployd');
+
+	var port = process.env.PORT || 8090;
+
 
 	// Set up Deployd
 	var options = {
@@ -24,9 +26,6 @@
 
 	// Routers
 	app.use(express.static(__dirname +  '/www'));
-
-	var port = process.env.PORT || 8090;
-
 
 	app.listen(port, function(err){
 		if(err){

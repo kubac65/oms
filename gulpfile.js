@@ -53,7 +53,8 @@ gulp.task('concat-vendor-js', function(done){
 			'./www/lib/angular-ui-router/release/angular-ui-router.js',
 			'./www/lib/angular-dpd/angular-dpd.js',
 			'./www/lib/ui-select/dist/select.min.js',
-			'./www/lib/angular-sanitize/angular-sanitize.min.js'
+			'./www/lib/angular-sanitize/angular-sanitize.min.js',
+			'./www/lib/angular-cookies/angular-cookies.js'
 		],
 		dst : './www/js/core.js'
 	};
@@ -69,6 +70,7 @@ gulp.task('concat-js', function(done){
 	var paths = {
 		src : [
 			'./www/js/oms.js',
+			'./www/login/module.js', './www/login/*.js',
 			'./www/customers/module.js','./www/customers/*.js',
 			'./www/orders/module.js','./www/orders/*.js'
 		],

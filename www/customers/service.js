@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('oms.customers')
-		.service('CustomersService', CustomersService);
+		.service('CustomersService', customersService);
 
-	CustomersService.$inject = ['$q', 'dpd'];
+	customersService.$inject = ['$q', 'dpd'];
 
-	function CustomersService($q, dpd){
+	function customersService($q, dpd){
 		this.customers = [];
 
 		var _this = this;
