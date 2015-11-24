@@ -5,7 +5,6 @@
     .directive('orderDetails', function() {
       return {
         restrict: 'E',
-        transclude: true,
         replace: true,
         templateUrl: 'orders/templates/details-directive.template.html'
       }
@@ -15,7 +14,6 @@
     .directive('orderItem', function() {
       return {
         restrict: 'AE',
-        transclude: true,
         replace: true,
         templateUrl: 'orders/templates/orderitem-directive.template.html',
         require: '^orderDetails',
