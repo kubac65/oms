@@ -4,9 +4,9 @@
   angular.module('oms.orders')
     .service('OrdersService', OrdersService);
 
-  OrdersService.$inject = ['$q', 'dpd'];
+  OrdersService.$inject = ['$q'];
 
-  function OrdersService($q, dpd){
+  function OrdersService($q){
     this.orders = [];
     this.statuses = [
       {
@@ -41,31 +41,29 @@
       var defer = $q.defer();
 
       dpd.orders.get()
-        .success(function(res) {
+        .then(function success(res) {
           angular.copy(res, _this.orders);
           defer.resolve(_this.orders);
-        })
-        .error(function(err) {
+        }, function error(err) {
           defer.reject(err);
         });
 
       return defer.promise;
-    }
+    };
 
     this.add = function(order) {
       var defer = $q.defer();
 
       dpd.orders.post(order)
-        .success(function(res) {
+        .then(function success(res) {
           _this.orders.push(res);
           defer.resolve(res);
-        })
-        .error(function(err) {
+        }, function error(err) {
           defer.reject(err);
         });
 
       return defer.promise;
-    }
+    };
 
     this.update = function(order) {
       var defer = $q.defer();
@@ -82,30 +80,28 @@
         total: order.total,
         ref: order.ref
       })
-        .success(function(res) {
+        .then(function success(res) {
           defer.resolve(res);
-        })
-        .error(function(err) {
+        }, function error(err) {
           defer.reject(err);
         });
 
       return defer.promise;
-    }
+    };
 
     this.remove = function(order) {
       var defer = $q.defer();
 
       dpd.orders.del(order.id)
-        .success(function(res) {
+        .then(function success(res) {
           var index = _this.orders.indexOf(order);
           _this.orders.splice(index, 1);
           defer.resolve();
-        })
-        .error(function(err){
+        }, function error(err){
           defer.reject(err);
-        })
+        });
 
       return defer.promise;
-    }
+    };
   }
 })();

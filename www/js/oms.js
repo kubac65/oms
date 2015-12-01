@@ -1,5 +1,5 @@
 (function(){
-	angular.module('oms', ['ui.router', 'oms.login', 'oms.customers', 'oms.orders', 'templates', 'dpd'])
+	angular.module('oms', ['ui.router', 'oms.login', 'oms.customers', 'oms.orders', 'templates'])
 		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 			$urlRouterProvider.otherwise('/login');
 
