@@ -3,35 +3,34 @@
 
 	var express = require('express');
 	var bodyParser = require('body-parser');
+	var http = require('http');
 	var deployd = require('deployd');
 
-	var port = process.env.PORT || 8090;
-
-
-	// Set up Deployd
-	var options = {
-		port: 9000,
-		db: {
-			connectionString: 'mongodb://dev.dsrms.com/oms'
-		}
-	}
-
-	var dpd = deployd(options);
-	dpd.listen();
+	var PORT = process.env.PORT || 8090;
+	var DB = process.env.DB || 'mongodb://dev.dsrms.com/oms';
+	var ENV = process.env.NODE_ENV || 'development';
 
 	var app = express();
 
 	// Register middleware
+	app.use(express.static(__dirname +  '/www'));
 	app.use(bodyParser.json());
 
-	// Routers
-	app.use(express.static(__dirname +  '/www'));
+	// Set up Deployd middleware
+	var server = http.createServer(app);
+	var api = deployd.attach(server, {
+		env: ENV,
+		db: {
+			connectionString: DB
+		}
+	});
+	app.use(server.handleRequest);
 
-	app.listen(port, function(err){
+	app.listen(PORT, function(err){
 		if(err){
 			throw err;
 		}
 
-		console.log("OMS started on port: " + port);
+		console.log("OMS started on port: " + PORT);
 	});
 })();
