@@ -54,7 +54,7 @@
     this.add = function(order) {
       var defer = $q.defer();
 
-      dpd.orders.post(order)
+      dpd.orders.post(angular.copy(order))
         .then(function success(res) {
           _this.orders.push(res);
           defer.resolve(res);
