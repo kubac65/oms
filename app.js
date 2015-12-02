@@ -2,29 +2,28 @@
 	'use strict';
 
 	var express = require('express');
-	var bodyParser = require('body-parser');
 	var http = require('http');
 	var deployd = require('deployd');
+	var io = require('socket.io')
 
 	var PORT = process.env.PORT || 8090;
 	var DB = process.env.DB || 'mongodb://dev.dsrms.com/oms';
-	var ENV = process.env.NODE_ENV || 'development';
+	var ENV = process.env.ENV || 'development';
 
 	var app = express();
 
-	// Register middleware
 	app.use(express.static(__dirname +  '/www'));
-	app.use(bodyParser.json());
 
 	// Set up Deployd middleware
 	var server = http.createServer(app);
 	var api = deployd.attach(server, {
 		env: ENV,
+		socketIo: io.listen(server, {'log level': 0}),
 		db: {
 			connectionString: DB
 		}
 	});
-	app.use(server.handleRequest);
+	app.use(api.handleRequest);
 
 	app.listen(PORT, function(err){
 		if(err){

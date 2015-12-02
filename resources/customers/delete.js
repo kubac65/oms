@@ -1,3 +1,5 @@
+cancelUnless(me, "You must be logged in to do this.", 401);
+
 var _this = this;
 
 var query = {

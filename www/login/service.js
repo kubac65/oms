@@ -4,22 +4,22 @@
   angular.module('oms.login')
     .service('LoginService', loginService);
 
-  loginService.$inject = ['$http', '$cookies'];
+  loginService.$inject = ['$http', '$state'];
 
-  function loginService($http, $cookies) {
+  function loginService($https, $state) {
+    this.logged = false;
 
     this.login = function(user) {
-      $http.post( 'http://localhost:9000/users/login', user)
-        .then(
-        function(session, error) {
-          if (error) {
-            alert(error.message);
-            return false;
-          } else {
-            $cookies.sid = session.data.id; // set the sid cookie
-            //$state.go('loginSuccess');
-          }
+      dpd.users.login(user)
+        .then(function success(result){
+          $state.go('customers');
+        }, function err(err){
+          throw err;
         });
+    };
+
+    this.logout = function() {
+      dpd.users.get('logout');
     };
   };
 })();

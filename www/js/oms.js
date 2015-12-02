@@ -32,13 +32,5 @@
 						}
 					}
 				});
-		}])
-
-		.value('dpdConfig', {
-			collections: ['customers', 'orders', 'users'],
-			serverRoot:'http://localhost:9000/',
-			socketOptions: { reconnectionDelayMax: 3000},
-			useSocketIo: false,
-			noCache: true
-		});
+		}]);
 })();
