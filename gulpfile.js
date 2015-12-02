@@ -68,7 +68,7 @@ gulp.task('concat-vendor-js', function(done){
 gulp.task('concat-js', function(done){
 	var paths = {
 		src : [
-			'./www/js/oms.js',
+			'./www/oms/module.js', './www/oms/app.js',
 			'./www/login/module.js', './www/login/*.js',
 			'./www/customers/module.js','./www/customers/*.js',
 			'./www/orders/module.js','./www/orders/*.js'

@@ -4,16 +4,16 @@
   angular.module('oms.login')
     .controller('LoginController', loginCtrl);
 
-  loginCtrl.$inject = ['$scope', 'LoginService'];
+  loginCtrl.$inject = ['$scope', 'AuthService'];
 
-  function loginCtrl($scope, LoginService) {
+  function loginCtrl($scope, AuthService) {
     $scope.user = {
       username: '',
       password: ''
     };
 
     $scope.login = function(user) {
-      LoginService.login(user);
+      AuthService.login(user);
     };
   };
 })();

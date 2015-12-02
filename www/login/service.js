@@ -2,17 +2,17 @@
   'use strict';
 
   angular.module('oms.login')
-    .service('LoginService', loginService);
+    .service('AuthService', authService);
 
-  loginService.$inject = ['$http', '$state'];
+  authService.$inject = [];
 
-  function loginService($https, $state) {
-    this.logged = false;
+  function authService() {
+    var authenticated = false;
 
     this.login = function(user) {
       dpd.users.login(user)
         .then(function success(result){
-          $state.go('customers');
+          authenticated = true;
         }, function err(err){
           throw err;
         });
@@ -20,6 +20,10 @@
 
     this.logout = function() {
       dpd.users.get('logout');
+    };
+
+    this.isAuthenticated = function() {
+      return authenticated;
     };
   };
 })();
