@@ -12,11 +12,18 @@
       password: ''
     };
 
+    $scope.loading = false;
+    $scope.error = false;
+
     $scope.login = function(user) {
       AuthService.login(user)
-        .then(function(res) {
-          $state.transitionTo("customers");
-        }, function() {});
+        .then(function success(res) {
+          $scope.loading = true;
+          $state.transitionTo('customers');
+          $scope.error = false;
+        }, function error(err) {
+          $scope.error = true;
+        });
     };
   };
 })();

@@ -1,9 +1,13 @@
 <div class="container login">
   <div class="row">
-    <form ng-submit="login(user)">
+    <h1 class="message" ng-show="loading">Please wait...</h1>
+    <form ng-hide="loading" novalidate name="loginForm" ng-submit="login(user)">
       <h1>Please Login</h1>
-      <input type="text" class="form-control margin-bottom" placeholder="Username" ng-model="user.username">
-      <input type="password" class="form-control margin-bottom" placeholder="Password" ng-model="user.password">
+      <input type="text" class="form-control margin-bottom" placeholder="Username" ng-model="user.username" required>
+      <input type="password" class="form-control margin-bottom" placeholder="Password" ng-model="user.password" required>
+      <div class="alert alert-danger" ng-show="error">
+        Bad credentials.
+      </div>
       <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
   </div>

@@ -1,5 +1,5 @@
 (function() {
   'use strict';
 
-  angular.module('oms.login', ['ngCookies']);
+  angular.module('oms.login', ['oms.auth']);
 })();

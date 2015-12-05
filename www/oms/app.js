@@ -50,6 +50,9 @@
         $state.transitionTo("login");
         event.preventDefault();
       }
+      else if(AuthService.isAuthenticated() && toState.name == 'login') {
+        event.preventDefault();
+      }
     });
   };
 })();
