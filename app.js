@@ -4,7 +4,7 @@
 	var express = require('express');
 	var http = require('http');
 	var deployd = require('deployd');
-	var io = require('socket.io')
+	var io = require('socket.io');
 
 	var PORT = process.env.PORT || 8090;
 	var DB = process.env.DB || 'mongodb://dev.dsrms.com/oms';
@@ -16,16 +16,17 @@
 
 	// Set up Deployd middleware
 	var server = http.createServer(app);
+	var ioServer = io.listen(server, {'log level': 0})
 	var api = deployd.attach(server, {
 		env: ENV,
-		socketIo: io.listen(server, {'log level': 0}),
+		socketIo: ioServer,
 		db: {
 			connectionString: DB
 		}
 	});
-	app.use(api.handleRequest);
+	app.use(server.handleRequest);
 
-	app.listen(PORT, function(err){
+	server.listen(PORT, function(err){
 		if(err){
 			throw err;
 		}
