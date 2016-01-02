@@ -7,7 +7,7 @@
 	var io = require('socket.io');
 
 	var PORT = process.env.PORT || 8090;
-	var DB = process.env.DB || 'mongodb://dev.dsrms.com/oms';
+	var DB = process.env.DB || 'mongodb://localhost/oms';
 	var ENV = process.env.ENV || 'development';
 
 	var app = express();

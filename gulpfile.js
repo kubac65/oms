@@ -5,6 +5,7 @@ var concatcss = require('gulp-concat-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var templateCache = require('gulp-angular-templatecache');
+var mongodbData = require('gulp-mongodb-data');
 
 gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js', 'compile-templates']);
 
@@ -97,5 +98,14 @@ gulp.task('compile-templates', function(done){
 					}))
 				.pipe(uglify())
 				.pipe(gulp.dest(paths.dst));
+	done();
+});
+
+gulp.task('install', ['default'], function(done){
+	gulp.src('./db/*.json')
+		.pipe(mongodbData({
+			mongoUrl: 'mongodb://localhost/oms',
+			dropCollection: true
+		}));
 	done();
 });

@@ -1,0 +1,4 @@
+[
+  { "_id" : "customerid", "seq" : 1 },
+  { "_id" : "orderid", "seq" : 1 }
+]
