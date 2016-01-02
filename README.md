@@ -18,4 +18,4 @@ In order to start development follow the instruction below:
   * Username: admin
   * Password: admin9988
 
-In the future one changes have been made to the js files just run ```gulp``` and restart the server.
+In the future when changes have been made to the js/sass/html files just run ```gulp``` to recompile them and restart the server.
