@@ -21,11 +21,12 @@
 					count: 10
 				},
 				{
-					data: $scope.vm.customers
+					dataset: $scope.vm.customers
 				});
+
 				AsyncOverlay.Off();
 			});
-		
+
 		$scope.add = function(){
 			var modalInstance = $uibModal.open({
 				templateUrl: 'customers/templates/addnew-modal.template.html',
