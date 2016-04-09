@@ -3,13 +3,32 @@
   angular.module('oms.orders')
     .controller('OrdersListController', listCtrl);
 
-  listCtrl.$inject = ['$scope', '$uibModal', 'OrdersService'];
+  listCtrl.$inject = ['$scope', '$q', '$uibModal', 'OrdersService', 'CustomersService', 'NgTableParams'];
 
-  function listCtrl($scope, $uibModal, OrdersService) {
-    $scope.orders = OrdersService.orders;
+  function listCtrl($scope, $q, $uibModal, OrdersService, CustomersService, NgTableParams) {
+    AsyncOverlay.On();
+
+    $scope.vm = {
+      orders: [],
+      statuses: OrdersService.statuses
+    };
+
+    OrdersService.getAll()
+      .then(function(orders){
+        $scope.vm.orders = orders;
+        $scope.vm.tableParams = new NgTableParams({
+          page: 1,
+          count: 10,
+          sorting: {ordId: 'asc'}
+        },{
+          dataset: $scope.vm.orders
+        });
+
+        AsyncOverlay.Off();
+      });
 
     $scope.add = function(){
-      $uibModal.open({
+      var modalInstance = $uibModal.open({
 				templateUrl: 'orders/templates/addnew-modal.template.html',
 				size: 'lg',
 				controller: 'EditOrderController as eoCtrl',
@@ -19,6 +38,12 @@
           }
         }
 			});
+
+      modalInstance.result.then(function(addedOrder){
+        $scope.vm.orders.push(addedOrder);
+        $scope.vm.tableParams.reload();
+        AsyncOverlay.Off();
+      });
     }
 
     $scope.edit = function(order) {

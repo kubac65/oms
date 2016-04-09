@@ -1,3 +1,4 @@
+var scope;
 (function() {
   'use strict';
 
@@ -7,43 +8,53 @@
   editOrderCtrl.$inject = ['$scope', '$uibModal', '$uibModalInstance', 'OrdersService', 'CustomersService', 'order'];
 
   function editOrderCtrl($scope, $uibModal, $uibModalInstance, OrdersService, CustomersService, order) {
-    $scope.customers = CustomersService.customers;
-    $scope.statuses = OrdersService.statuses;
-    $scope.error = false;
+    AsyncOverlay.On();
+    scope = $scope;
+    $scope.vm = {
+      customers: [],
+      statuses: OrdersService.statuses,
+      order: {},
+      error: false,
+      addingNewItem: false,
+      newItem: {}
+    };
 
-    $scope.addingNewItem = false;
-    $scope.newItem = {};
+    CustomersService.getAll()
+      .then(function(customers){
+        $scope.vm.customers = customers;
 
-    $scope.order = {};
-    angular.copy(order, $scope.order);
+        if(order.id) {
+          $scope.vm.order = order;
+          $scope.vm.order.orderDate = new Date(order.orderDate);
+          $scope.vm.order.dueDate = new Date(order.dueDate);
 
-    if($scope.order.id) {
-      $scope.order.orderDate = new Date(order.orderDate);
-      $scope.order.dueDate = new Date(order.dueDate);
-
-      for (var i = 0; i < $scope.customers.length; i++) {
-        if ($scope.customers[i].id == $scope.order.customer.id) {
-          $scope.selected = {
-            customer: $scope.customers[i]
+          for (var i = 0; i < $scope.vm.customers.length; i++) {
+            if ($scope.vm.customers[i].id == $scope.vm.order.customer.id) {
+              $scope.vm.selected = {
+                customer: $scope.vm.customers[i]
+              }
+              break;
+            }
           }
-          break;
         }
-      }
-    }
-    else {
-      $scope.order = {
-        customer: {},
-        orderDate: new Date(),
-        dueDate: new Date(),
-        status: $scope.statuses[0].value,
-        items: [],
-        total: 0
-      }
+        else {
+          $scope.vm.order = {
+            customer: {},
+            orderDate: new Date(),
+            dueDate: new Date(),
+            status: $scope.vm.statuses[0].id,
+            items: [],
+            total: 0
+          }
 
-      $scope.selected = {
-        customer: null
-      }
-    }
+          $scope.vm.selected = {
+            customer: null
+          }
+        }
+
+        AsyncOverlay.Off();
+      });
+
     $scope.$on('updateTotal', function() {
       updateTotal();
     });
@@ -56,33 +67,33 @@
 
     var updateTotal = function() {
       var total = 0;
-      $scope.order.items.forEach(function(item) {
+      $scope.vm.order.items.forEach(function(item) {
         total += item.quantity * item.unitPrice;
       });
-      $scope.order.total = total;
+      $scope.vm.order.total = total;
     }
 
     this.save = function() {
-      $scope.order.customer.id = $scope.selected.customer.id;
-      $scope.order.customer.name = $scope.selected.customer.name;
+      $scope.vm.order.customer.id = $scope.vm.selected.customer.id;
+      $scope.vm.order.customer.name = $scope.vm.selected.customer.name;
 
-      if($scope.order.id) {
+      if($scope.vm.order.id) {
         $uibModalInstance.result.then(function(updatedOrder){
           angular.extend(order, updatedOrder);
         });
 
-        OrdersService.update($scope.order)
-          .then(function success() {
-            $uibModalInstance.close($scope.order);
+        OrdersService.update($scope.vm.order)
+          .then(function success(updatedOrder) {
+            $uibModalInstance.close(updatedOrder);
           }, function error(err) {
             $scope.error = true;
             throw err;
           });
       }
       else {
-        OrdersService.add($scope.order)
-          .then(function success(order) {
-            $uibModalInstance.close(order);
+        OrdersService.add($scope.vm.order)
+          .then(function success(addedOrder) {
+            $uibModalInstance.close(addedOrder);
           }, function error(err) {
             $scope.error = true;
             throw err;
@@ -91,27 +102,36 @@
     }
 
     this.addCustomer = function() {
-      $uibModal.open({
+      var modalInstance = $uibModal.open({
 				templateUrl: 'customers/templates/addnew-modal.template.html',
 				size: 'lg',
 				controller: 'AddCustomerController',
 			});
+
+      modalInstance.result.then(function(addedCustomer){
+        $scope.vm.customers.push(addedCustomer);
+        $scope.selected = {
+          customer: addedCustomer
+        };
+
+        AsyncOverlay.Off();
+      });
     }
 
     this.addItem = function() {
-      $scope.addingNewItem = true;
+      $scope.vm.addingNewItem = true;
     }
 
     this.saveItem = function() {
-      $scope.order.items.push(angular.copy($scope.newItem));
-      $scope.newItem = {}
+      $scope.vm.order.items.push(angular.copy($scope.vm.newItem));
+      $scope.vm.newItem = {}
       $scope.$emit('updateTotal');
-      $scope.addingNewItem = false;
+      $scope.vm.addingNewItem = false;
     }
 
     this.cancelItem = function() {
-      $scope.newItem = {}
-      $scope.addingNewItem = false;
+      $scope.vm.newItem = {}
+      $scope.vm.addingNewItem = false;
     }
 
     this.cancel = function() {

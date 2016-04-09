@@ -7,43 +7,41 @@
   OrdersService.$inject = ['$q'];
 
   function OrdersService($q){
-    this.orders = [];
     this.statuses = [
       {
-        value: 'quotation',
-        label: 'Quotation'
+        id: 'quotation',
+        title: 'Quotation'
       },
       {
-        value: 'readyfordesign',
-        label: 'Ready for Design'
+        id: 'ready for design',
+        title: 'Ready for Design'
       },
       {
-        value: 'onproof',
-        label: 'On Proof'
+        id: 'on proof',
+        title: 'On Proof'
       },
       {
-        value: 'readytoprint',
-        label: 'Ready To Print'
+        id: 'ready to print',
+        title: 'Ready To Print'
       },
       {
-        value: 'finishing',
-        label: 'Finishing'
+        id: 'finishing',
+        title: 'Finishing'
       },
       {
-        value: 'completed',
-        label: 'Completed'
+        id: 'completed',
+        title: 'Completed'
       }
     ];
 
     var _this = this;
 
-    this.getAll = function() {
+    this.getAll = function(collection) {
       var defer = $q.defer();
 
       dpd.orders.get()
         .then(function success(res) {
-          angular.copy(res, _this.orders);
-          defer.resolve(_this.orders);
+          defer.resolve(res);
         }, function error(err) {
           defer.reject(err);
         });
@@ -56,7 +54,6 @@
 
       dpd.orders.post(angular.copy(order))
         .then(function success(res) {
-          _this.orders.push(res);
           defer.resolve(res);
         }, function error(err) {
           defer.reject(err);

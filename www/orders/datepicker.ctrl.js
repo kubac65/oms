@@ -18,7 +18,7 @@
       startingDay: 1
     };
 
-    $scope.format = 'dd MMMM yyyy'
+    $scope.format = 'yyyy-MM-dd'
 
     $scope.status = {
       opened: false

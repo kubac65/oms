@@ -28,44 +28,16 @@
   <div class="row margin-bottom">
     <div class="container">
       <div class="col-md-12 table-resoponsive">
-        <table class="table table-striped table-condensed" ng-cloak>
-          <thead>
-            <tr>
-              <th class="col-md-1">ID</th>
-              <th class="col-md-2">Customer</th>
-              <th class="col-md-2">Details</th>
-              <th class="col-md-1">Ref</th>
-              <th class="col-md-1">Order Date</th>
-              <th class="col-md-1">Due Date</th>
-              <th class="col-md-1">Status</th>
-              <th class="col-md-2">&nbsp</th>
-            </tr>
-          </thead>
+        <table class="table table-striped table-condensed ng-cloak" ng-table="vm.tableParams" show-filter="true">
           <tbody>
-            <tr ng-repeat="order in orders">
-              <td>{{order.ordId}}</td>
-              <td>{{order.customer.name}}</td>
-              <td>
-                <table class="table table-striped table-condensed">
-                  <thead>
-                    <tr>
-                      <td><strong>Label</strong></td>
-                      <td><strong>Quantity</strong></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="item in order.items">
-                      <td>{{item.label}}</td>
-                      <td>{{item.quantity}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td>{{order.ref}}</td>
-              <td>{{order.orderDate | date:'dd MMMM yyyy'}}</td>
-              <td>{{order.dueDate | date:'dd MMMM yyyy'}}</td>
-              <td>{{order.status}}</td>
-              <td>
+            <tr ng-repeat="order in $data track by order.ordId">
+              <td class="col-md-1" title="'Id'" sortable="'ordId'">{{order.ordId}}</td>
+              <td class="col-md-2" title="'Customer'" filter="{'customer.name': 'text'}" sortable="'customer.name'">{{order.customer.name}}</td>
+              <td class="col-md-2" title="'Ref'" filter="{ref: 'text'}"  sortable="'ref'">{{order.ref}}</td>
+              <td class="col-md-1" title="'Order Date'" sortable="'orderDate'">{{order.orderDate | date:'yyyy-MM-dd'}}</td>
+              <td class="col-md-1" title="'Due Date'"  sortable="'dueDate'">{{order.dueDate | date:'yyyy-MM-dd'}}</td>
+              <td class="col-md-2" title="'Status'" filter="{status: 'select'}" filter-data="vm.statuses" sortable="'status'">{{order.status}}</td>
+              <td class="col-md-2" title="'&nbsp;'">
                 <div class="btn-group">
                   <button class="btn btn-primary" ng-click="edit(order)"><span aria-hidden="true" class="glyphicon glyphicon-info-sign">&nbsp;</span>Edit</button>
                   <button class="btn btn-danger" ng-click="remove(order)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign">&nbsp;</span>Remove</button>

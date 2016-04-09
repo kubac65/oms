@@ -1,15 +1,15 @@
-<tr ng-dblclick="oilCtrl.edit()">
+<tr ng-disable="vm.addingNewItem" ng-dblclick="oilCtrl.edit()">
   <td>
     <span ng-hide="editing">{{item.label}}</span>
-    <input type="text" ng-show="editing" ng-model="editedItem.label">
+    <input type="text" class="form-control" ng-show="editing" ng-model="editedItem.label">
   </td>
   <td>
     <span ng-hide="editing">{{item.quantity}}</span>
-    <input type="text" ng-show="editing" ng-model="editedItem.quantity">
+    <input type="text" class="form-control" ng-show="editing" ng-model="editedItem.quantity">
   </td>
   <td>
     <span ng-hide="editing">{{item.unitPrice | currency: '€'}}</span>
-    <input type="text" ng-show="editing" ng-model="editedItem.unitPrice">
+    <input type="text" class="form-control" ng-show="editing" ng-model="editedItem.unitPrice">
   </td>
   <td>
     <span>{{item.quantity * item.unitPrice | currency: '€'}}</span>
