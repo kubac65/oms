@@ -10,9 +10,10 @@
 		$scope.customer = customer;
 
 		$scope.yes = function(){
+      AsyncOverlay.On();
       CustomersService.remove(customer)
         .then(function success(){
-          $uibModalInstance.close();
+          $uibModalInstance.close(customer);
         }, function error(err){
           throw err;
         });

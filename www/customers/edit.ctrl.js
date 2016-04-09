@@ -11,6 +11,7 @@
 		angular.copy(customer, $scope.customer)
 
 		$scope.update = function(){
+      AsyncOverlay.On();
 			CustomersService.update($scope.customer)
         .then(function success(){
           $uibModalInstance.close($scope.customer);

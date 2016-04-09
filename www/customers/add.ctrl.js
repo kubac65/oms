@@ -12,6 +12,7 @@
 
 
 		$scope.add = function(){
+      AsyncOverlay.On();
 			CustomersService.add($scope.customer)
 				.then(function success(customer){
 					$uibModalInstance.close(customer);

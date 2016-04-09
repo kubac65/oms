@@ -1,5 +1,5 @@
 (function(){
   'use strict';
 
-  angular.module('oms.customers', ['ui.bootstrap']);
+  angular.module('oms.customers', ['ui.bootstrap', 'ngTable']);
 })();

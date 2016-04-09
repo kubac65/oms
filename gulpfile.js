@@ -7,7 +7,7 @@ var uglify = require('gulp-uglify');
 var templateCache = require('gulp-angular-templatecache');
 var mongodbData = require('gulp-mongodb-data');
 
-gulp.task('default', ['sass', 'copy-bootstrap', 'concat-vendor-js', 'concat-js', 'compile-templates']);
+gulp.task('default', ['sass', 'concat-vendor-js', 'concat-js', 'compile-templates']);
 
 gulp.task('sass', function(done){
 	var paths = {
@@ -29,22 +29,6 @@ gulp.task('sass', function(done){
 	done();
 });
 
-gulp.task('copy-bootstrap', function(done){
-	var paths = {
-		cssSrc : './www/lib/bootstrap/dist/css/bootstrap.min.css',
-		cssDst : './www/css/',
-		fontsSrc : './www/lib/bootstrap/dist/fonts/*',
-		fontsDst : './www/fonts/'
-	};
-
-	gulp.src(paths.cssSrc)
-		.pipe(gulp.dest(paths.cssDst));
-
-	gulp.src(paths.fontsSrc)
-		.pipe(gulp.dest(paths.fontsDst));
-
-	done();
-});
 
 gulp.task('concat-vendor-js', function(done){
 	var paths = {
@@ -54,7 +38,8 @@ gulp.task('concat-vendor-js', function(done){
 			'./www/lib/angular-ui-router/release/angular-ui-router.js',
 			'./www/lib/ui-select/dist/select.min.js',
 			'./www/lib/angular-sanitize/angular-sanitize.min.js',
-			'./www/lib/angular-cookies/angular-cookies.js'
+			'./www/lib/angular-cookies/angular-cookies.js',
+			'./www/lib/ng-table/dist/ng-table.min.js'
 		],
 		dst : './www/js/core.js'
 	};
@@ -74,7 +59,9 @@ gulp.task('concat-js', function(done){
 			'./www/navbar/module.js', './www/navbar/*.js',
 			'./www/login/module.js', './www/login/*.js',
 			'./www/customers/module.js','./www/customers/*.js',
-			'./www/orders/module.js','./www/orders/*.js'
+			'./www/orders/module.js','./www/orders/*.js',
+			'./www/oms/asyncOverlay.js'
+
 		],
 		dst : './www/js/app.js'
 	}
