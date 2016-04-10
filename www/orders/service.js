@@ -75,7 +75,10 @@
         status: order.status,
         items: order.items,
         total: order.total,
-        ref: order.ref
+        vat: order.vat,
+        totalDue: order.totalDue,
+        ref: order.ref,
+        vatOption: order.vatOption
       })
         .then(function success(res) {
           defer.resolve(res);

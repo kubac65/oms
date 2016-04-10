@@ -14,6 +14,16 @@ var scope;
       customers: [],
       statuses: OrdersService.statuses,
       order: {},
+      vatOptions: [
+        {
+          value: 0,
+          label: 'No VAT'
+        },
+        {
+          value: 0.23,
+          label: '23%'
+        }
+      ],
       error: false,
       addingNewItem: false,
       newItem: {}
@@ -36,6 +46,13 @@ var scope;
               break;
             }
           }
+
+          for (var i = 0; i< $scope.vm.vatOptions.length; i++) {
+            if($scope.vm.vatOptions[i].value == $scope.vm.order.vatOption) {
+              $scope.vm.selected.vatOption = $scope.vm.vatOptions[i];
+              break;
+            }
+          }
         }
         else {
           $scope.vm.order = {
@@ -44,11 +61,14 @@ var scope;
             dueDate: new Date(),
             status: $scope.vm.statuses[0].id,
             items: [],
-            total: 0
+            total: 0,
+            vat: 0,
+            totalDue: 0
           }
 
           $scope.vm.selected = {
-            customer: null
+            customer: null,
+            vatOption: $scope.vm.vatOptions[0]
           }
         }
 
@@ -71,11 +91,14 @@ var scope;
         total += item.quantity * item.unitPrice;
       });
       $scope.vm.order.total = total;
+      $scope.vm.order.vat = total * $scope.vm.selected.vatOption.value;
+      $scope.vm.order.totalDue = $scope.vm.order.total + $scope.vm.order.vat
     }
 
     this.save = function() {
       $scope.vm.order.customer.id = $scope.vm.selected.customer.id;
       $scope.vm.order.customer.name = $scope.vm.selected.customer.name;
+      $scope.vm.order.vatOption = $scope.vm.selected.vatOption.value;
 
       if($scope.vm.order.id) {
         $uibModalInstance.result.then(function(updatedOrder){
@@ -99,6 +122,10 @@ var scope;
             throw err;
           });
       }
+    }
+
+    this.updateVat = function() {
+      updateTotal();
     }
 
     this.addCustomer = function() {

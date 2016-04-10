@@ -19,7 +19,7 @@
         $scope.vm.tableParams = new NgTableParams({
           page: 1,
           count: 10,
-          sorting: {ordId: 'asc'}
+          sorting: {ordId: 'desc'}
         },{
           dataset: $scope.vm.orders
         });

@@ -64,6 +64,30 @@
 			"required": true,
 			"id": "total",
 			"order": 7
+		},
+		"vat": {
+			"name": "vat",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "vat",
+			"order": 8
+		},
+		"vatOption": {
+			"name": "vatOption",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "vatOption",
+			"order": 9
+		},
+		"totalDue": {
+			"name": "totalDue",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "totalDue",
+			"order": 10
 		}
 	}
 }

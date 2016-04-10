@@ -68,6 +68,27 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
+            <tr>
+              <td>
+                <select class="form-control" ng-options="option as option.label for option in vm.vatOptions"
+                  ng-model="vm.selected.vatOption" ng-change="eoCtrl.updateVat()"></select>
+              </td>
+              <td>&nbsp;</td>
+              <td><strong style="float:right">VAT</strong></td>
+              <td>{{vm.order.vat | currency: '€'}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                &nbsp;
+              </td>
+              <td>&nbsp;</td>
+              <td><strong style="float:right">Total Due</strong></td>
+              <td>{{vm.order.totalDue | currency: '€'}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
           </tfoot>
           <tbody>
             <tr order-item ng-repeat="i in vm.order.items" item="i"></tr>
