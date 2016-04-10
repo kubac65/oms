@@ -32,7 +32,8 @@
   run.$inject = ['$rootScope', '$state', 'AuthService'];
 
   function run($rootScope, $state, AuthService) {
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
       if(toState.authenticate){
         AuthService.isAuthenticated()
           .then(function success(){

@@ -5,6 +5,7 @@
 	var http = require('http');
 	var deployd = require('deployd');
 	var io = require('socket.io');
+	var phantomjs = require('phantomjs');
 
 	var PORT = process.env.PORT || 8090;
 	var DB = process.env.DB || 'mongodb://localhost/oms';

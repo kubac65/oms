@@ -38,7 +38,7 @@ gulp.task('concat-vendor-js', function(done){
 			'./www/lib/angular-ui-router/release/angular-ui-router.js',
 			'./www/lib/ui-select/dist/select.min.js',
 			'./www/lib/angular-sanitize/angular-sanitize.min.js',
-			'./www/lib/angular-cookies/angular-cookies.js',
+			'./www/lib/angular-cookies/angular-cookies.min.js',
 			'./www/lib/ng-table/dist/ng-table.min.js'
 		],
 		dst : './www/js/core.js'
