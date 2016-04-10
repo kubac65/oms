@@ -32,14 +32,26 @@
   run.$inject = ['$rootScope', '$state', 'AuthService'];
 
   function run($rootScope, $state, AuthService) {
-    /*$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-      if (toState.authenticate && !AuthService.isAuthenticated()) {
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+      if(toState.authenticate){
+        AuthService.isAuthenticated()
+          .then(function success(){
+            if(toState.name == 'login'){
+              event.preventDefault();
+            }
+          }, function error(){
+            $state.transitionTo("login");
+            event.preventDefault();
+          });
+      };
+
+      /*if (toState.authenticate && !AuthService.isAuthenticated()) {
         $state.transitionTo("login");
         event.preventDefault();
       }
       else if(AuthService.isAuthenticated() && toState.name == 'login') {
         event.preventDefault();
-      }
-    });*/
+      }*/
+    });
   };
 })();

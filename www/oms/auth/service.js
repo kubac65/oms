@@ -7,20 +7,12 @@
   authService.$inject = ['$q'];
 
   function authService($q) {
-    this.auth = {
-      user: {},
-      authenticated: false
-    };
-
-    var _this = this;
 
     this.login = function(user) {
       var defer = $q.defer();
 
       dpd.users.login(user)
         .then(function success(res){
-          _this.auth.authenticated = true;
-          _this.auth.user = res;
           defer.resolve(res);
         }, function error(err){
           defer.reject(err);
@@ -34,8 +26,6 @@
 
       dpd.users.logout()
         .then(function success(res) {
-          _this.auth.authenticated = false;
-          _this.auth.user = {};
           defer.resolve();
         }, function error(err) {
           defer.reject(err);
@@ -45,7 +35,20 @@
     };
 
     this.isAuthenticated = function() {
-      return _this.auth.authenticated;
+      var defer = $q.defer();
+      dpd.users.me()
+        .then(function success(me){
+          if(me !== '' && me !== null){
+            defer.resolve();
+          }
+          else{
+            defer.reject();
+          }
+        }, function error(err){
+          defer.reject();
+        });
+
+      return defer.promise;
     };
   };
 })();
