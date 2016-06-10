@@ -26,6 +26,7 @@ var scope;
       ],
       error: false,
       addingNewItem: false,
+      editing: false,
       newItem: {}
     };
 
@@ -80,8 +81,8 @@ var scope;
     });
 
     $scope.$on('removeItem', function(event, item) {
-        var index = $scope.order.items.indexOf(item);
-        $scope.order.items.splice(index, 1);
+        var index = $scope.vm.order.items.indexOf(item);
+        $scope.vm.order.items.splice(index, 1);
         updateTotal();
     });
 
@@ -173,17 +174,24 @@ var scope;
 
   function orderItemCtlr($scope) {
     $scope.editing = false;
+    $scope.$parent.vm.editing = false;
     $scope.editedItem = {};
 
     this.edit = function() {
-      angular.copy($scope.item, $scope.editedItem);
-      $scope.editing = true;
+      //Nasty hack
+      if(!($scope.$parent.vm.editing || $scope.$parent.vm.addingNewItem)){
+        angular.copy($scope.item, $scope.editedItem);
+        $scope.editing = true;
+        $scope.$parent.vm.editing = true;
+      }
+
     }
 
     this.save = function() {
       angular.extend($scope.item, $scope.editedItem);
       $scope.$emit('updateTotal');
       $scope.editing = false;
+      $scope.$parent.vm.editing = false;
     }
 
     this.remove = function() {
@@ -193,6 +201,7 @@ var scope;
     this.cancel = function() {
       $scope.editedItem = {};
       $scope.editing = false;
+      $scope.$parent.vm.editing = false;
     }
   }
 })();

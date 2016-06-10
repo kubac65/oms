@@ -1,4 +1,4 @@
-<tr ng-disable="vm.addingNewItem" ng-dblclick="oilCtrl.edit()">
+<tr ng-dblclick="oilCtrl.edit()">
   <td>
     <span ng-hide="editing">{{item.label}}</span>
     <input type="text" class="form-control" ng-show="editing" ng-model="editedItem.label">

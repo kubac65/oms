@@ -60,7 +60,7 @@
           <tfoot>
             <tr>
               <td>
-                <button type="button" class="btn btn-primary" ng-disabled="vm.addingNewItem" ng-click="eoCtrl.addItem()">Add item</button>
+                <button type="button" class="btn btn-primary" ng-disabled="vm.addingNewItem || vm.editing" ng-click="eoCtrl.addItem()">Add item</button>
               </td>
               <td>&nbsp;</td>
               <td><strong style="float:right">Total</strong></td>
