@@ -26,7 +26,7 @@
         <table class="table table-striped table-condensed" ng-table="vm.tableParams" show-filter="true" ng-cloak>
           <tbody>
             <tr ng-repeat="cust in $data track by cust.custId">
-              <td class="col-md-1" title="'Id'" sortable="'custId'">{{cust.custId}}</td>
+              <td class="col-md-1" title="'Id'" filter="{custId: 'number'}" sortable="'custId'">{{cust.custId}}</td>
               <td class="col-md-2" title="'Name'" filter="{name: 'text'}" sortable="'name'">{{cust.name}}</td>
               <td class="col-md-3" title="'Address'" filter="{address: 'text'}" sortable="'address'"><a href="http://maps.google.com/?q={{cust.address}}" target="_blank">{{cust.address}}</a></td>
               <td class="col-md-2" title="'Email'" filter="{email: 'text'}" sortable="'email'"><a href="mailto:{{cust.email}}">{{cust.email}}</a></td>
