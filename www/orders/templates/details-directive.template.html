@@ -3,7 +3,7 @@
     <div class="row margin-top">
       <div class="col-md-6">
         <label for="add-order-customer">Customer</label>
-        <p class="input-group margin-bottom">
+        <p class="input-group margin-bottom" ng-if="!vm.archived">
           <ui-select required ng-model="vm.selected.customer"
                       theme="bootstrap">
             <ui-select-match placeholder="Select Customer">
@@ -14,29 +14,37 @@
             </ui-select-choices>
           </ui-select>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-success" ng-click="eoCtrl.addCustomer()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
+            <button type="button" class="btn btn-success" ng-click="eoCtrl.addCustomer()">
+              <span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add
+            </button>
           </span>
+
         </p>
+        <input type="text" id="add-order-customer" class="form-control margin-bottom" ng-model="vm.selected.customer.name"  ng-disabled="vm.archived" />
         <label for="add-order-ref">Ref</label>
-        <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="vm.order.ref">
+        <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="vm.order.ref" ng-disabled="vm.archived">
         <label for="add-order-status">Status</label>
-        <select class="form-control margin-bottom" ng-model="vm.order.status" required>
+        <select class="form-control margin-bottom" ng-model="vm.order.status" required ng-disabled="vm.archived">
           <option ng-repeat="status in vm.statuses" option="{{status.id}}">{{status.title}}</option>
         </select>
       </div>
       <div class="col-md-6" >
         <label for="add-order-orderDate">Order Date</label>
         <p class="input-group margin-bottom" ng-controller="DatepickerController">
-          <input type="text" name="orderDate" id="add-order-orderDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.vm.order.orderDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" name="orderDate" id="add-order-orderDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.vm.order.orderDate"
+          is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="vm.archived"/>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="vm.archived"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
         <label for="add-order-dueDate">Due Date</label>
         <p class="input-group margin-bottom" ng-controller="DatepickerController">
-          <input type="text" name="dueDate" id="add-order-dueDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.vm.order.dueDate" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" name="dueDate" id="add-order-dueDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="$parent.vm.order.dueDate"
+          is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="vm.archived"/>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="vm.archived">
+              <i class="glyphicon glyphicon-calendar"></i>
+              </button>
           </span>
         </p>
         <div class="alert alert-danger" ng-show="error">
@@ -60,7 +68,9 @@
           <tfoot>
             <tr>
               <td>
-                <button type="button" class="btn btn-primary" ng-disabled="vm.addingNewItem || vm.editing" ng-click="eoCtrl.addItem()">Add item</button>
+                <button type="button" class="btn btn-primary" ng-disabled="vm.addingNewItem || vm.editing"
+                ng-click="eoCtrl.addItem()"
+                ng-if="!vm.archived">Add item</button>
               </td>
               <td>&nbsp;</td>
               <td><strong style="float:right">Total</strong></td>
@@ -71,7 +81,8 @@
             <tr>
               <td>
                 <select class="form-control" ng-options="option as option.label for option in vm.vatOptions"
-                  ng-model="vm.selected.vatOption" ng-change="eoCtrl.updateVat()"></select>
+                  ng-model="vm.selected.vatOption" ng-change="eoCtrl.updateVat()"
+                  ng-disabled="vm.archived"></select>
               </td>
               <td>&nbsp;</td>
               <td><strong style="float:right">VAT</strong></td>
@@ -91,7 +102,7 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr order-item ng-repeat="i in vm.order.items" item="i"></tr>
+            <tr order-item ng-repeat="i in vm.order.items" item="i" archived="vm.archived"></tr>
             <tr ng-if="vm.addingNewItem">
               <td>
                 <input type="text" class="form-control" name="itemLabel" ng-model="vm.newItem.label" required>
@@ -107,8 +118,12 @@
               </td>
               <td></td>
               <td>
-                <button type="button" class="btn btn-primary" ng-disabled="addOrderForm.itemLabel.$invalid || addOrderForm.itemQuantity.$invalid || addOrderForm.itemUnitPrice.$invalid" ng-click="eoCtrl.saveItem()"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
-                <button type="button" class="btn btn-default" ng-click="eoCtrl.cancelItem()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+                <button type="button" class="btn btn-primary" ng-disabled="addOrderForm.itemLabel.$invalid || addOrderForm.itemQuantity.$invalid || addOrderForm.itemUnitPrice.$invalid" ng-click="eoCtrl.saveItem()" ng-if="!vm.archived">
+                  <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                  </button>
+                <button type="button" class="btn btn-default" ng-click="eoCtrl.cancelItem()">
+                  <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                  </button>
               </td>
             </tr>
           </tbody>
@@ -116,8 +131,8 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid">Save</button>
+  <div class="modal-footer" ng-if="!vm.archived">
+    <button type="submit" class="btn btn-success" ng-disabled="addOrderForm.$invalid" >Save</button>
     <button type="button" class="btn btn-danger" ng-click="eoCtrl.cancel()">Cancel</button>
   </div>
 </form>

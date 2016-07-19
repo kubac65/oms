@@ -44,7 +44,11 @@
         resolve: {
           order: function() {
             return order;
+          },
+          archived: function() {
+            return $scope.vm.selectedSet.id == 'archive';
           }
+
         }
       });
     }

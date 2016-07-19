@@ -19,7 +19,8 @@
         require: '^orderDetails',
         controller: 'OrderItemController as oilCtrl',
         scope: {
-          item: '='
+          item: '=',
+          archived: '='
         }
       }
     });

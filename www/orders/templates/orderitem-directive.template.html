@@ -1,4 +1,4 @@
-<tr ng-dblclick="oilCtrl.edit()">
+<tr ng-dblclick="oilCtrl.edit()" ng-disabled="archived">
   <td>
     <span ng-hide="editing">{{item.label}}</span>
     <input type="text" class="form-control" ng-show="editing" ng-model="editedItem.label">
@@ -16,8 +16,14 @@
   </td>
   <td></td>
   <td>
-    <button type="button" ng-show="editing" class="btn btn-primary" ng-click="oilCtrl.save()"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
-    <button type="button" ng-show="editing" class="btn btn-default" ng-click="oilCtrl.cancel()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
-    <button type="button" ng-hide="editing" class="btn btn-danger" ng-click="oilCtrl.remove()"><span aria-hidden="true" class="glyphicon glyphicon-trash"></span></button>
+    <button type="button" ng-show="editing" class="btn btn-primary" ng-click="oilCtrl.save()">
+      <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+    </button>
+    <button type="button" ng-show="editing" class="btn btn-default" ng-click="oilCtrl.cancel()">
+      <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+    </button>
+    <button type="button" ng-hide="editing" class="btn btn-danger" ng-click="oilCtrl.remove()" ng-if="!archived">
+      <span aria-hidden="true" class="glyphicon glyphicon-trash"></span>
+    </button>
   </td>
 </tr>

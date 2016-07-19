@@ -5,9 +5,9 @@ var scope;
   angular.module('oms.orders')
     .controller('EditOrderController', editOrderCtrl);
 
-  editOrderCtrl.$inject = ['$scope', '$uibModal', '$uibModalInstance', 'OrdersService', 'CustomersService', 'order'];
+  editOrderCtrl.$inject = ['$scope', '$uibModal', '$uibModalInstance', 'OrdersService', 'CustomersService', 'order', 'archived'];
 
-  function editOrderCtrl($scope, $uibModal, $uibModalInstance, OrdersService, CustomersService, order) {
+  function editOrderCtrl($scope, $uibModal, $uibModalInstance, OrdersService, CustomersService, order, archived) {
     AsyncOverlay.On();
     scope = $scope;
     $scope.vm = {
@@ -27,7 +27,8 @@ var scope;
       error: false,
       addingNewItem: false,
       editing: false,
-      newItem: {}
+      newItem: {},
+      archived: archived
     };
 
     CustomersService.getAll()
@@ -179,7 +180,7 @@ var scope;
 
     this.edit = function() {
       //Nasty hack
-      if(!($scope.$parent.vm.editing || $scope.$parent.vm.addingNewItem)){
+      if(!($scope.$parent.vm.editing || $scope.$parent.vm.addingNewItem || archived)){
         angular.copy($scope.item, $scope.editedItem);
         $scope.editing = true;
         $scope.$parent.vm.editing = true;

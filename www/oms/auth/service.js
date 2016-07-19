@@ -28,7 +28,6 @@
         .then(function success(me){
           if(me !== '' && me !== null){
             defer.resolve(true);
-
           }
           else{
             defer.resolve(false);
