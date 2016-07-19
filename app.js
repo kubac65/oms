@@ -5,15 +5,17 @@
 	var http = require('http');
 	var deployd = require('deployd');
 	var io = require('socket.io');
-	var phantomjs = require('phantomjs');
 
 	var PORT = process.env.PORT || 8090;
 	var DB = process.env.DB || 'mongodb://localhost/oms';
 	var ENV = process.env.ENV || 'development';
 
-	var app = express();
+	// Import routes
+	var pdfRoutes = require('./routes/pdf_generator.js')
 
+	var app = express();
 	app.use(express.static(__dirname +  '/www'));
+	app.use('/pdf', pdfRoutes);
 
 	// Set up Deployd middleware
 	var server = http.createServer(app);
@@ -34,4 +36,6 @@
 
 		console.log("OMS started on port: " + PORT);
 	});
+
+
 })();
