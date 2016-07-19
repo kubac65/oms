@@ -4,9 +4,16 @@
   angular.module('oms')
     .controller('NavbarController', navbarCtrl);
 
-  navbarCtrl.$inject = ['$scope', '$state', 'AuthService'];
+  navbarCtrl.$inject = ['$scope', '$state', 'AuthService', '$q'];
 
-  function navbarCtrl($scope, $state, AuthService) {
+  function navbarCtrl($scope, $state, AuthService, $q) {
+    $scope.authenticated = false;
+
+    authentictionChanged();
+
+    $scope.$on('authentiction-changed', function(){
+      authentictionChanged();
+    });
 
     this.logout = function() {
       AuthService.logout()
@@ -16,5 +23,13 @@
           throw err;
         });
     };
+
+    function authentictionChanged(){
+      AuthService.isAuthenticated().then(function(authenticated){
+          $scope.authenticated = authenticated;
+      }, function() {
+        $scope.authenticated = false;
+      });
+    }
   };
 })();

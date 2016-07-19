@@ -4,48 +4,37 @@
   angular.module('oms.auth')
     .service('AuthService', authService);
 
-  authService.$inject = ['$q'];
+  authService.$inject = ['$q', '$rootScope'];
 
-  function authService($q) {
+  function authService($q, $rootScope) {
 
     this.login = function(user) {
-      var defer = $q.defer();
+      return dpd.users.login(user).then(function(){
+        $rootScope.$broadcast('authentiction-changed');
+      });
 
-      dpd.users.login(user)
-        .then(function success(res){
-          defer.resolve(res);
-        }, function error(err){
-          defer.reject(err);
-        });
-
-      return defer.promise;
     };
 
     this.logout = function() {
-      var defer = $q.defer();
-
-      dpd.users.logout()
-        .then(function success(res) {
-          defer.resolve();
-        }, function error(err) {
-          defer.reject(err);
-        });
-
-      return defer.promise;
+      return dpd.users.logout().then(function(){
+        $rootScope.$broadcast('authentiction-changed');
+      });
     };
 
     this.isAuthenticated = function() {
       var defer = $q.defer();
+
       dpd.users.me()
         .then(function success(me){
           if(me !== '' && me !== null){
-            defer.resolve();
+            defer.resolve(true);
+
           }
           else{
-            defer.reject();
+            defer.resolve(false);
           }
         }, function error(err){
-          defer.reject();
+          defer.reject(false);
         });
 
       return defer.promise;

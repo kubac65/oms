@@ -4,18 +4,18 @@
       <a class="navbar-brand" href="#">OMS</a>
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav" ng-show="navbarCtrl.isAuthenticated()">
+      <ul class="nav navbar-nav" ng-if="authenticated">
         <li>
           <a ui-sref="customers">Customers</a>
         </li>
       </ul>
-      <ul class="nav navbar-nav" ng-show="navbarCtrl.isAuthenticated()">
+      <ul class="nav navbar-nav" ng-if="authenticated">
         <li>
           <a ui-sref="orders">Orders</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right" >
-        <li><button class="btn btn-primary navbar-btn" ng-click="navbarCtrl.logout()">Logout</button></li>
+        <li><button class="btn btn-primary navbar-btn" ng-click="navbarCtrl.logout()" ng-if="authenticated">Logout</button></li>
       </ul>
     </div>
   </div>

@@ -41,18 +41,10 @@
               event.preventDefault();
             }
           }, function error(){
-            $state.transitionTo("login");
             event.preventDefault();
+            $state.transitionTo("login");
           });
       };
-
-      /*if (toState.authenticate && !AuthService.isAuthenticated()) {
-        $state.transitionTo("login");
-        event.preventDefault();
-      }
-      else if(AuthService.isAuthenticated() && toState.name == 'login') {
-        event.preventDefault();
-      }*/
     });
   };
 })();
