@@ -10,18 +10,9 @@
   </div>
   <div class="row margin-bottom">
     <div class="container">
-      <div class="col-md-12">
+      <div class="col-md-12 form-inline">
         <button class="btn btn-success" ng-click="add()"><span aria-hidden="true" class="glyphicon glyphicon-plus-sign">&nbsp</span>Add</button>
-        <div ng-show="false">
-          <input type="search" class="form-control form-control-inline" placeholder="Customer Name or ID"/>
-          <button class="btn btn-primary form-control form-control-inline"><span aria-hidden="true" class="glyphicon glyphicon-search">&nbsp</span>Search</button>
-          <button class="btn btn-primary form-control form-control-inline">Clear Results</button>
-          <div class="btn-group">
-            <button class="btn">In Progress</button>
-            <button class="btn active">All</button>
-            <button class="btn btn-primary">Completed</button>
-          </div>
-        </div>
+        <select class="form-control" ng-options="set as set.title for set in vm.dataSets track by set.id" ng-model="vm.selectedSet" ng-change="datasetChanged()"></select>
       </div>
     </div>
   </div>
@@ -38,10 +29,10 @@
               <td class="col-md-2" title="'Due Date'"  sortable="'dueDate'">{{order.dueDate | date:'yyyy-MM-dd'}}</td>
               <td class="col-md-1" title="'Status'" filter="{status: 'select'}" filter-data="vm.statuses" sortable="'status'">{{order.status}}</td>
               <td class="col-md-2" title="'&nbsp;'">
-                <div class="btn-group">
+                <div ng-if="vm.selectedSet.id=='current'" class="btn-group">
                   <button class="btn btn-primary" ng-click="edit(order)" title="Edit"><span aria-hidden="true" class="glyphicon glyphicon-info-sign"></span></button>
                   <button class="btn btn-danger" ng-click="remove(order)" title="Remove"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span></button>
-                  <button class="btn btn-success" title="Archive" ><span aria-hidden="true" class="glyphicon glyphicon-hdd"></span></button>
+                  <button class="btn btn-success" ng-click="archive(order)" title="Archive" ><span aria-hidden="true" class="glyphicon glyphicon-hdd"></span></button>
                 </div>
               </td>
             </tr>

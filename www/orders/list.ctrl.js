@@ -10,22 +10,12 @@
 
     $scope.vm = {
       orders: [],
-      statuses: OrdersService.statuses
+      statuses: OrdersService.statuses,
+      dataSets: OrdersService.datasets
     };
+    $scope.vm.selectedSet = $scope.vm.dataSets[0];
 
-    OrdersService.getAll()
-      .then(function(orders){
-        $scope.vm.orders = orders;
-        $scope.vm.tableParams = new NgTableParams({
-          page: 1,
-          count: 10,
-          sorting: {ordId: 'desc'}
-        },{
-          dataset: $scope.vm.orders
-        });
-
-        AsyncOverlay.Off();
-      });
+    datasetChanged();
 
     $scope.add = function(){
       var modalInstance = $uibModal.open({
@@ -60,7 +50,7 @@
     }
 
     $scope.remove = function(order) {
-      $uibModal.open({
+      var modalInstance = $uibModal.open({
         templateUrl: 'orders/templates/remove-modal.template.html',
         size:'lg',
         controller: 'RemoveOrderController',
@@ -70,6 +60,50 @@
           }
         }
       });
+
+      modalInstance.result.then(function(){
+        var index = $scope.vm.orders.indexOf(order);
+        $scope.vm.orders.splice(index, 1);
+        $scope.vm.tableParams.reload();
+      });
+    }
+
+    $scope.archive = function(order) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'orders/templates/archive-modal.template.html',
+        size:'lg',
+        controller: 'ArchiveOrderController',
+        resolve: {
+          order: function() {
+            return order;
+          }
+        }
+      });
+
+      modalInstance.result.then(function(){
+        var index = $scope.vm.orders.indexOf(order);
+        $scope.vm.orders.splice(index, 1);
+        $scope.vm.tableParams.reload();
+      });
+    }
+
+    $scope.datasetChanged = datasetChanged;
+
+    function datasetChanged(){
+      OrdersService.getAll($scope.vm.selectedSet)
+        .then(function(orders){
+          $scope.vm.orders = orders;
+          $scope.vm.tableParams = new NgTableParams({
+            page: 1,
+            count: 10,
+            sorting: {ordId: 'desc'}
+          },{
+            dataset: $scope.vm.orders
+          });
+          $scope.vm.tableParams.reload();
+
+          AsyncOverlay.Off();
+        });
     }
   }
 })();

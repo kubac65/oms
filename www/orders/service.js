@@ -34,38 +34,35 @@
       }
     ];
 
+    this.datasets = [
+      {
+        id: 'current',
+        title: 'Current'
+      },
+      {
+        id: 'archive',
+        title: 'Archive'
+      }
+    ];
+
     var _this = this;
 
-    this.getAll = function(collection) {
-      var defer = $q.defer();
+    this.getAll = function(dataset) {
 
-      dpd.orders.get()
-        .then(function success(res) {
-          defer.resolve(res);
-        }, function error(err) {
-          defer.reject(err);
-        });
-
-      return defer.promise;
+      if(dataset.id == 'archive'){
+        return dpd.ordersarchive.get();
+      }
+      else {
+        return dpd.orders.get()
+      }
     };
 
     this.add = function(order) {
-      var defer = $q.defer();
-
-      dpd.orders.post(angular.copy(order))
-        .then(function success(res) {
-          defer.resolve(res);
-        }, function error(err) {
-          defer.reject(err);
-        });
-
-      return defer.promise;
+      return dpd.orders.post(angular.copy(order));
     };
 
     this.update = function(order) {
-      var defer = $q.defer();
-
-      dpd.orders.put(order.id, {
+      return dpd.orders.put(order.id, {
         customer: {
           id: order.customer.id,
           name: order.customer.name
@@ -79,29 +76,20 @@
         totalDue: order.totalDue,
         ref: order.ref,
         vatOption: order.vatOption
-      })
-        .then(function success(res) {
-          defer.resolve(res);
-        }, function error(err) {
-          defer.reject(err);
-        });
-
-      return defer.promise;
+      });
     };
 
     this.remove = function(order) {
-      var defer = $q.defer();
-
-      dpd.orders.del(order.id)
-        .then(function success(res) {
-          var index = _this.orders.indexOf(order);
-          _this.orders.splice(index, 1);
-          defer.resolve();
-        }, function error(err){
-          defer.reject(err);
-        });
-
-      return defer.promise;
+      return dpd.orders.del(order.id);
     };
+
+    this.archive = function(order) {
+      var newOrder = angular.copy(order);
+      newOrder.id = null;
+      return dpd.ordersarchive.post(newOrder).then(
+        function success(res){
+          return dpd.orders.del(order.id);
+        });
+    }
   }
 })();
