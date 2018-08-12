@@ -25,6 +25,9 @@
         resolve: {
           order: function() {
             return {};
+          },
+          archived: function(){
+            return false;
           }
         }
 			});

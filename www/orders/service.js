@@ -62,6 +62,15 @@
     };
 
     this.update = function(order) {
+      var items = [];
+      order.items.forEach(function(item){
+        items.push({
+          label: item.label,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice
+        });
+      });
+
       return dpd.orders.put(order.id, {
         customer: {
           id: order.customer.id,
@@ -70,7 +79,7 @@
         orderDate: order.orderDate,
         dueDate: order.dueDate,
         status: order.status,
-        items: order.items,
+        items: items,
         total: order.total,
         vat: order.vat,
         totalDue: order.totalDue,

@@ -20,7 +20,7 @@
           </span>
 
         </p>
-        <input type="text" id="add-order-customer" class="form-control margin-bottom" ng-model="vm.selected.customer.name"  ng-disabled="vm.archived" />
+        <input type="text" id="add-order-customer" class="form-control margin-bottom" ng-model="vm.selected.customer.name" ng-show="vm.archived" ng-disabled="vm.archived" />
         <label for="add-order-ref">Ref</label>
         <input type="text" name="ref" id="add-order-ref" class="form-control margin-bottom" placeholder="Reference Text" ng-model="vm.order.ref" ng-disabled="vm.archived">
         <label for="add-order-status">Status</label>
