@@ -36,4 +36,13 @@
 	select.ng-invalid.ng-touched{
 		@extend .alert-danger;
 	}
+
+	@media print {
+		.navbar{
+			display: none;
+		}
+		.view{
+			display: none;
+		}
+	}
 }
